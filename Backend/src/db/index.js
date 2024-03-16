@@ -2,9 +2,7 @@ const mongoose = require("mongoose");
 
 async function connectDb() {
   try {
-    const connectionInstance = await mongoose.connect(
-      `mongodb+srv://Prakash:${process.env.PASSWORD}@cluster0.gjxynzr.mongodb.net/Co-Share`
-    );
+    const connectionInstance = await mongoose.connect(process.env.MONGODB_URL);
     console.log(
       `MONGO DB CONNECTED !! DB HOST ${connectionInstance.connection.host}`
     );
