@@ -11,6 +11,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  avatar: {
+    type: String,
+  },
   password: {
     type: String,
     required: true,
@@ -60,10 +63,4 @@ userSchema.methods.generateRefreshToken = function () {
   );
 };
 
-const User = mongoose.model("User", userSchema);
-
-exports.getUserById = async function (userId) {
-  return await User.findById(userId);
-};
-
-await User.findById(id);
+exports.User = mongoose.model("User", userSchema);

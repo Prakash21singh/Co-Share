@@ -1,7 +1,9 @@
 const { app } = require("./app.js");
 const connectDb = require("./db/index.js");
+const User = require("./routes/user.route.js");
+User.routeConfig(app);
 require("dotenv").config({
-  path: "../.env",
+  path: "./.env",
 });
 
 connectDb()
