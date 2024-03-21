@@ -1,7 +1,15 @@
-const user = require("../controllers/User/user.controller");
-exports.routeConfig = function (app) {
-  app.post("/api/v1/user/register", user.registerUser);
-  app.post("/api/v1/user/login", user.loginUser);
-  app.post("/api/v1/user/logout", user.logoutUser);
-  app.post("/api/v1/user/refresh-token", user.refreshAccessToken);
+import {
+  loginUser,
+  logoutUser,
+  refreshAccessToken,
+  registerUser,
+} from "../controllers/User/user.controller.js";
+
+const routeConfig = function (app) {
+  app.post("/api/v1/user/register", registerUser);
+  app.post("/api/v1/user/login", loginUser);
+  app.post("/api/v1/user/logout", logoutUser);
+  app.post("/api/v1/user/refresh-token", refreshAccessToken);
 };
+
+export { routeConfig as User };

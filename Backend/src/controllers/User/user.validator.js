@@ -1,4 +1,4 @@
-exports.validateUserRegister = function (email, username, password) {
+const validateUserRegister = function (email, username, password) {
   if (!email.includes("@")) {
     return res.json({ message: "Invalid email respose" });
   }
@@ -10,7 +10,7 @@ exports.validateUserRegister = function (email, username, password) {
   }
 };
 
-exports.validateUserLogin = function (email, username, password) {
+const validateUserLogin = function (email, username, password) {
   if (!email && !username) {
     return res
       .status(400)
@@ -25,3 +25,5 @@ exports.validateUserLogin = function (email, username, password) {
       .json({ message: "Password should be greater than 8 characters" });
   }
 };
+
+export { validateUserLogin, validateUserRegister };

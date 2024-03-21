@@ -1,7 +1,6 @@
-const validate = require("./user.validator");
-const jwt = require("jsonwebtoken");
-const { User } = require("../../models/user.model");
-
+import { validateUserLogin, validateUserRegister } from "./user.validator.js";
+import jwt from "jsonwebtoken";
+import User from "../../models/user.model.js";
 const option = {
   httpOnly: true,
   secure: true,
@@ -16,7 +15,7 @@ const generateAccessTokenAndRefreshToken = async function (userId) {
   return { accessToken, refreshToken };
 };
 
-exports.registerUser = function (req, res) {
+const registerUser = function (req, res) {
   let { email, username, password } = req.body;
   validate.validateUserRegister(email, username, password);
   User.create({
@@ -36,7 +35,7 @@ exports.registerUser = function (req, res) {
     });
 };
 
-exports.loginUser = async function (req, res) {
+const loginUser = async function (req, res) {
   let { email, username, password } = req.body;
   validate.validateUserLogin(email, username, password);
   let user = await User.findOne({ $or: [{ email }, { username }] });
@@ -66,7 +65,7 @@ exports.loginUser = async function (req, res) {
     .json({ user: accessToken, refreshToken, loggedInUser });
 };
 
-exports.logoutUser = function (req, res) {
+const logoutUser = function (req, res) {
   //user ko find karo
   //req me to user set hai waha se cookie clear karo
   //and database me findbyid karke ek query lelo and refreshtoken delete kardo waaha
@@ -89,7 +88,7 @@ exports.logoutUser = function (req, res) {
     .json(new ApiResponse(200, {}, "User logged Out"));
 };
 
-exports.refreshAccessToken = function (req, res) {
+const refreshAccessToken = function (req, res) {
   let incomingRefreshToken = req.cookies?.refreshToken || req.body.refreshToken;
 
   if (!incomingRefreshToken) {
@@ -116,3 +115,5 @@ exports.refreshAccessToken = function (req, res) {
     .cookie("refreshToken", newRefreshToken)
     .json({ data: newRefreshToken, accessToken }, "Access Token Refreshed");
 };
+
+export { refreshAccessToken, logoutUser, loginUser, registerUser };

@@ -1,8 +1,9 @@
-const { app } = require("./app.js");
-const connectDb = require("./db/index.js");
-const User = require("./routes/user.route.js");
-User.routeConfig(app);
-require("dotenv").config({
+import { app } from "./app.js";
+import { connectDb } from "./db/index.js";
+import { User } from "./routes/user.route.js";
+import dotenv from "dotenv";
+User(app);
+dotenv.config({
   path: "./.env",
 });
 
