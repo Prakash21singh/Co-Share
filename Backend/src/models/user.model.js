@@ -21,6 +21,19 @@ const userSchema = new mongoose.Schema({
   refreshToken: {
     type: String,
   },
+  coverImg: {
+    type: String,
+  },
+  followers: [
+    {
+      type: String,
+    },
+  ],
+  following: [
+    {
+      type: String,
+    },
+  ],
   myUpload: [
     {
       type: String,

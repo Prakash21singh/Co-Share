@@ -1,4 +1,6 @@
-import { validateUserLogin, validateUserRegister } from "./user.validator.js";
+import { ApiError } from "../../utils/ApiError.js";
+import { ApiResponse } from "../../utils/ApiResponse.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
 import jwt from "jsonwebtoken";
 import User from "../../models/user.model.js";
 const option = {
@@ -15,42 +17,57 @@ const generateAccessTokenAndRefreshToken = async function (userId) {
   return { accessToken, refreshToken };
 };
 
-const registerUser = function (req, res) {
+const registerUser = asyncHandler(async function (req, res) {
   let { email, username, password } = req.body;
-  validate.validateUserRegister(email, username, password);
-  User.create({
+  if (!email && !username) {
+    throw new ApiError(401, "Email and username is required");
+  }
+  if (password.length < 8) {
+    throw new ApiError(400, "Password should be eight digits long");
+  }
+  let user = await User.create({
     email: email,
     username: username,
     password: password,
-  })
-    .then((user) => {
-      user: user.toJSON();
-      delete user.password;
-      delete user.refreshToken;
-      delete user.avatar;
-      return res.status(200).send(user);
-    })
-    .catch((error) => {
-      res.status(400).json({ error: error.message || "Invalid registration" });
-    });
-};
+  });
+
+  let createdUser = await User.findById(user._id).select(
+    "-password -myUpload -avatar -coverImg -followers -following"
+  );
+
+  if (!createdUser) {
+    throw new ApiError(401, "User is not created");
+  }
+
+  res.send(new ApiResponse(200, createdUser, "Signed Up successfully"));
+});
 
 const loginUser = async function (req, res) {
-  let { email, username, password } = req.body;
-  validate.validateUserLogin(email, username, password);
-  let user = await User.findOne({ $or: [{ email }, { username }] });
+  let { identification, password } = req.body;
+
+  if (!identification) {
+    throw new ApiError(
+      401,
+      "Email or username is required",
+      "Please enter email or username for sign in"
+    );
+  }
+
+  let user = await User.findOne({
+    $or: [{ email: identification }, { username: identification }],
+  });
 
   if (!user) {
     res.status(200).json({ message: "User does not exist in database" });
   }
 
-  const isValidPassword = await user.isValidPassword(password);
+  const ValidPassword = await user.isPasswordCorrect(password);
 
-  if (!isValidPassword) {
+  if (!ValidPassword) {
     res.status(400).json({ message: "Invalid user credentials" });
   }
 
-  let { accessToken, refreshToken } = generateAccessTokenAndRefreshToken(
+  let { accessToken, refreshToken } = await generateAccessTokenAndRefreshToken(
     user._id
   );
 
@@ -62,14 +79,10 @@ const loginUser = async function (req, res) {
     .status(200)
     .cookie("accessToken", accessToken)
     .cookie("refreshToken", refreshToken)
-    .json({ user: accessToken, refreshToken, loggedInUser });
+    .json({ accessToken, refreshToken, loggedInUser });
 };
 
 const logoutUser = function (req, res) {
-  //user ko find karo
-  //req me to user set hai waha se cookie clear karo
-  //and database me findbyid karke ek query lelo and refreshtoken delete kardo waaha
-
   User.findByIdAndUpdate(
     req.user?._id,
     {
@@ -83,8 +96,8 @@ const logoutUser = function (req, res) {
   );
   return res
     .status(200)
-    .clearCookie("accessToken", options)
-    .clearCookie("refreshToken", options)
+    .clearCookie("accessToken", option)
+    .clearCookie("refreshToken", option)
     .json(new ApiResponse(200, {}, "User logged Out"));
 };
 
