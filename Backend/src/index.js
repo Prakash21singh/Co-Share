@@ -2,10 +2,10 @@ import { app } from "./app.js";
 import { connectDb } from "./db/index.js";
 import { User } from "./routes/user.route.js";
 import dotenv from "dotenv";
-User(app);
 dotenv.config({
   path: "./.env",
 });
+User(app);
 
 connectDb()
   .then(() => {
