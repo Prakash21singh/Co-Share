@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
-const { User } = require("../models/user.model");
+import jwt from "jsonwebtoken";
 
-exports.verifyJwt = function (req, res, next) {
+import User from "../models/user.model.js";
+export const verifyJwt = async function (req, res, next) {
   try {
     let token =
       req.cookies?.accessToken ||
@@ -13,8 +13,8 @@ exports.verifyJwt = function (req, res, next) {
 
     const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
-    let user = User.findById(decodedToken._id).select(
-      "-password -refreshToken"
+    let user = await User.findById(decodedToken._id).select(
+      "-password -refreshToken -avatar -coverImg -followers -following -myUpload"
     );
     if (!user) {
       res.status(400).json({ message: "Invalid access token" });

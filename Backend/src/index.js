@@ -1,12 +1,13 @@
 import { app } from "./app.js";
 import { connectDb } from "./db/index.js";
+import { userUpload } from "./routes/upload.route.js";
 import { User } from "./routes/user.route.js";
 import dotenv from "dotenv";
 dotenv.config({
   path: "./.env",
 });
 User(app);
-
+userUpload(app);
 connectDb()
   .then(() => {
     app.listen(process.env.PORT || 8000, () => {

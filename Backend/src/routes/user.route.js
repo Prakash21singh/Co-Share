@@ -4,6 +4,7 @@ import {
   refreshAccessToken,
   registerUser,
 } from "../controllers/user.controller.js";
+import { verifyJwt } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
 const routeConfig = function (app) {
   app.post(
@@ -21,7 +22,7 @@ const routeConfig = function (app) {
     registerUser
   );
   app.post("/api/v1/user/login", loginUser);
-  app.post("/api/v1/user/logout", logoutUser);
+  app.post("/api/v1/user/logout", verifyJwt, logoutUser);
   app.post("/api/v1/user/refresh-token", refreshAccessToken);
 };
 
