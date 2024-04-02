@@ -79,3 +79,32 @@ export const createUpload = asyncHandler(async function (req, res) {
     return res.status(400).send(error);
   }
 });
+
+export const updateUpload = asyncHandler(async (req, res) => {
+  try {
+    let uploadId = req.params.uploadId;
+    let { title, description } = req.body;
+
+    let upload = await Upload.findByIdAndUpdate(
+      uploadId,
+      {
+        title,
+        description,
+      },
+      { new: true }
+    );
+
+    if (req.files && req.files.NewUpload) {
+      let uploadFilePath = req.files.NewUpload[0]?.path;
+      let UploadedFile = await uploadOnCloudinay(uploadFilePath);
+      upload.upload = UploadedFile.url;
+    }
+    await upload.save();
+
+    res
+      .status(200)
+      .send(new ApiResponse(200, upload, "Your file is Updated successfully"));
+  } catch (error) {
+    res.status(400).send(new ApiError(400, error.message, error));
+  }
+});

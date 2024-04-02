@@ -2,6 +2,7 @@ import {
   createUpload,
   getAllUploads,
   getUpload,
+  updateUpload,
 } from "../controllers/upload.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 const routeConfig = function (app) {
@@ -20,7 +21,16 @@ const routeConfig = function (app) {
     createUpload
   );
 
-  app.patch("/api/v1/user/upload/:uploadId" /*Edit Your upload*/);
+  app.patch(
+    "/api/v1/user/upload/:uploadId",
+    upload.fields([
+      {
+        name: "NewUpload",
+        maxCount: 1,
+      },
+    ]),
+    updateUpload
+  );
 
   app.delete("/api/v1/user/upload/:uploadId" /*Delete Your upload*/);
 };
