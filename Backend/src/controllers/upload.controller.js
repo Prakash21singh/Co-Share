@@ -108,3 +108,27 @@ export const updateUpload = asyncHandler(async (req, res) => {
     res.status(400).send(new ApiError(400, error.message, error));
   }
 });
+
+export const deleteUpload = asyncHandler(async (req, res) => {
+  try {
+    //get id from the req.user
+    let { id, uploadId } = req.params;
+    if (!id) {
+      throw new ApiError(
+        404,
+        "Looks like user is not authorised for this process"
+      );
+    }
+    await User.findByIdAndUpdate(id, { $pull: { myUpload: uploadId } });
+    let deletedUpload = await Upload.findByIdAndDelete(uploadId);
+    res.send(
+      new ApiResponse(
+        200,
+        deleteUpload,
+        "Your upload has been deleted succesfully"
+      )
+    );
+  } catch (error) {
+    res.status(400).send(new ApiError(400, error.message, error));
+  }
+});

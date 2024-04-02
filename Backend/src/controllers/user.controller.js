@@ -20,7 +20,6 @@ const generateAccessTokenAndRefreshToken = async function (userId) {
 
 const registerUser = asyncHandler(async function (req, res) {
   let { fullname, email, username, password } = req.body;
-
   if (
     [fullname, email, username, password].some((field) => field?.trim() === "")
   ) {
@@ -33,6 +32,7 @@ const registerUser = asyncHandler(async function (req, res) {
     throw new ApiError(401, "User Already registered with this credential");
   }
   let avatarLocalPath = req.files?.avatar[0]?.path;
+
   let coverImageLocalPath;
   if (
     req.files &&
