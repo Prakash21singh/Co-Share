@@ -1,0 +1,84 @@
+.login_Container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  .display_panel {
+    position: absolute;
+    width: 700px;
+    transform: skew(24deg) rotate(22deg);
+    height: 130px;
+    background: linear-gradient(to right, #4c877c, #194056, #488aaf);
+    left: 0;
+    top: 85%;
+  }
+  .left_content {
+    width: 60%;
+    height: inherit;
+    padding: 50px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .inner_content {
+      width: 80%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 30px;
+      position: relative;
+      .back_button {
+        position: absolute;
+        left: 2rem;
+        top: 2rem;
+      }
+      p {
+        font-size: 1.25rem;
+        color: rgb(105, 102, 102);
+      }
+    }
+  }
+  .right_content {
+    flex: 1;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 40px;
+    .inner_content {
+      height: 80%;
+      width: 80%;
+      display: flex;
+      align-items: start;
+      flex-direction: column;
+      .input_Fields {
+        flex: 1;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+        h1 {
+          position: absolute;
+          left: 0;
+          top: 0;
+          font-weight: 600;
+        }
+        .login_message {
+          p {
+            color: gray;
+            a {
+              text-decoration: none;
+              color: #1c3b5f;
+            }
+          }
+        }
+      }
+    }
+  }
+}

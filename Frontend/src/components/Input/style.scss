@@ -1,0 +1,12 @@
+.inputField {
+  border-width: 2px;
+  border: 1px solid gray;
+  padding: 10px;
+  border-radius: 3px;
+  outline: none;
+  width: 100%;
+  .left_content {
+    width: 60vh;
+    height: 100vh;
+  }
+}

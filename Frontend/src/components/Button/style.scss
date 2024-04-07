@@ -1,0 +1,19 @@
+.component_Button {
+  padding: 12px 10px;
+  //   width: 100px;
+  background: linear-gradient(
+    to right,
+    rgba(76, 135, 124, 1),
+    rgba(25, 64, 86, 1),
+    rgba(72, 138, 175, 1)
+  );
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s all;
+  &:hover {
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.196);
+  }
+}
