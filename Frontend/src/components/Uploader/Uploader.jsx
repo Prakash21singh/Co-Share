@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./uploader.scss";
 import { MdCloudUpload, MdDelete } from "react-icons/md";
 import { AiFillFileImage } from "react-icons/ai";
+import DeleteIcon from "../../assets/icons/DeleteIcon";
 const Uploader = ({ width, height, text, name }) => {
   const [image, setImage] = useState(null);
   const [fileName, setfileName] = useState("No selected file");
@@ -26,7 +27,16 @@ const Uploader = ({ width, height, text, name }) => {
           }}
         />
         {image ? (
-          <img src={image} />
+          <>
+            <img src={image} />
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                setImage(null);
+              }}>
+              <DeleteIcon />
+            </span>
+          </>
         ) : (
           <>
             <MdCloudUpload

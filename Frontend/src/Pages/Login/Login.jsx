@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../../components/Button/Button";
 import InputField from "../../components/Input/Input";
 import "./style.scss";
+import { Link } from "react-router-dom";
 const Login = () => {
   return (
     <>
@@ -57,7 +58,8 @@ const Login = () => {
               <br />
               <div className="login_message">
                 <p>
-                  Doesn't have an account?.. <a href="#">Register Now</a>
+                  Doesn't have an account?..{" "}
+                  <Link to="/register">Register Now</Link>
                 </p>
               </div>
             </div>

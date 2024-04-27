@@ -3,7 +3,7 @@ import Button from "../../components/Button/Button";
 import InputField from "../../components/Input/Input";
 import "./style.scss";
 import Uploader from "../../components/Uploader/Uploader";
-
+import { Link } from "react-router-dom";
 const Register = () => {
   return (
     <>
@@ -83,7 +83,7 @@ const Register = () => {
               <br />
               <div className="register_message">
                 <p>
-                  Already have an account?.. <a href="#">Login Now</a>
+                  Already have an account?.. <Link to="/login">Log In Now</Link>
                 </p>
               </div>
             </div>
