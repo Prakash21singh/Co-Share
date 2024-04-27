@@ -1,0 +1,25 @@
+.uploadContainer {
+  display: flex;
+  border: 2px dashed rgb(25, 64, 86);
+  padding: 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 220px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* Ensure relative positioning for the container */
+  overflow: hidden;
+}
+
+.uploadContainer img {
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10%;
+  object-fit: cover;
+}
