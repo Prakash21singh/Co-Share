@@ -5,6 +5,11 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  .error_message_throw {
+    position: absolute;
+    right: 6rem;
+    bottom: 6rem;
+  }
   .display_panel {
     position: absolute;
     width: 700px;

@@ -7,10 +7,12 @@ const InputField = ({
   height,
   margin = "0px",
   padding = "10px",
+  handleChange,
 }) => {
   return (
     <>
       <input
+        onChange={handleChange}
         className="inputField"
         type={type}
         id={id}

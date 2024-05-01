@@ -1,11 +1,27 @@
 import React, { useState } from "react";
 import "./uploader.scss";
-import { MdCloudUpload, MdDelete } from "react-icons/md";
-import { AiFillFileImage } from "react-icons/ai";
+import { MdCloudUpload } from "react-icons/md";
 import DeleteIcon from "../../assets/icons/DeleteIcon";
-const Uploader = ({ width, height, text, name }) => {
+
+const Uploader = ({ width, height, text, name, onFileSelect }) => {
   const [image, setImage] = useState(null);
-  const [fileName, setfileName] = useState("No selected file");
+  const [fileName, setFileName] = useState("No selected file");
+
+  const handleFileChange = (event) => {
+    const {
+      target: { files },
+    } = event;
+
+    if (files && files[0]) {
+      setImage(URL.createObjectURL(files[0]));
+      setFileName(files[0].name);
+      onFileSelect(files[0]);
+    } else {
+      setImage(null);
+      setFileName("No selected file");
+    }
+  };
+
   return (
     <>
       <div
@@ -19,12 +35,7 @@ const Uploader = ({ width, height, text, name }) => {
           className="uploadField"
           hidden
           accept="image/*"
-          onChange={({ target: { files } }) => {
-            files[0] && setfileName(files[0].name);
-            if (files) {
-              setImage(URL.createObjectURL(files[0]));
-            }
-          }}
+          onChange={handleFileChange}
         />
         {image ? (
           <>
@@ -33,6 +44,9 @@ const Uploader = ({ width, height, text, name }) => {
               onClick={(e) => {
                 e.stopPropagation();
                 setImage(null);
+                setFileName("No selected file");
+                // Optionally, trigger onFileSelect with null to indicate removal
+                onFileSelect(null);
               }}>
               <DeleteIcon />
             </span>

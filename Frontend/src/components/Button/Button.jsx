@@ -7,10 +7,12 @@ const Button = ({
   padding,
   borderRadius,
   fontSize = "17px",
+  handleClick,
 }) => {
   return (
     <>
       <button
+        onClick={handleClick}
         className="component_Button"
         style={{
           width: width,

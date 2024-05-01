@@ -1,10 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../../components/Button/Button";
 import InputField from "../../components/Input/Input";
 import "./style.scss";
 import Uploader from "../../components/Uploader/Uploader";
 import { Link } from "react-router-dom";
+import axios from "axios";
 const Register = () => {
+  const [fullname, setFullname] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [avatar, setAvatar] = useState(null);
+  const [coverImg, setCoverImg] = useState();
+
+  function handleAvatar(selectedFile) {
+    selectedFile ? setAvatar(selectedFile) : "";
+  }
+  function handleCoverImage(selectedFile) {
+    selectedFile ? setCoverImg(selectedFile) : "";
+  }
+
+  function handleRegister() {
+    if (!fullname) {
+      alert("Fullname cannnot be empty");
+    }
+
+    if (!username) {
+      alert("Username cannot be empty");
+    }
+
+    if (!email) {
+      alert("Email cannot be empty");
+    }
+
+    if (!password) {
+      alert("Password cannot be empty");
+    }
+
+    if (!avatar) {
+      alert("Avatar cannot be empty");
+    }
+
+    let formData = new FormData();
+    formData.append("fullname", fullname);
+    formData.append("email", email);
+    formData.append("username", username);
+    formData.append("password", password);
+    formData.append("avatar", avatar);
+    formData.append("coverImg", coverImg ? coverImg : "");
+
+    axios
+      .post("http://localhost:3000/api/v1/user/register", formData, {
+        headers: "multipart/form-data",
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err.response.data));
+  }
+
+  function handleFullname(e) {
+    setFullname(e.target.value);
+  }
+  function handleUsername(e) {
+    setUsername(e.target.value);
+  }
+  function handleEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handlePassword(e) {
+    setPassword(e.target.value);
+  }
+
   return (
     <>
       <div className="register_Container">
@@ -45,6 +113,7 @@ const Register = () => {
                 type={"text"}
                 key={"fullname"}
                 margin="10px"
+                handleChange={handleFullname}
               />
               <InputField
                 width={"100%"}
@@ -53,6 +122,7 @@ const Register = () => {
                 type={"text"}
                 key={"username"}
                 margin="10px"
+                handleChange={handleUsername}
               />
               <InputField
                 width={"100%"}
@@ -61,6 +131,7 @@ const Register = () => {
                 type={"email"}
                 key={"Email"}
                 margin="0px 0px 10px 0px"
+                handleChange={handleEmail}
               />
               <InputField
                 width={"100%"}
@@ -69,17 +140,29 @@ const Register = () => {
                 type={"password"}
                 key={"password"}
                 margin="0px 0px 10px 0px"
+                handleChange={handlePassword}
               />
               <div className="uploader">
-                <Uploader name={"Avatar"} text={"Upload Avatar"} width={49} />
+                <Uploader
+                  name={"Avatar"}
+                  text={"Upload Avatar"}
+                  width={49}
+                  onFileSelect={handleAvatar}
+                />
                 <Uploader
                   name={"CoverImg"}
                   text={"Upload CoverImg"}
                   width={49}
+                  onFileSelect={handleCoverImage}
                 />
               </div>
               <br />
-              <Button text={"Register"} width={"100%"} key={"register"} />
+              <Button
+                text={"Register"}
+                width={"100%"}
+                key={"register"}
+                handleClick={handleRegister}
+              />
               <br />
               <div className="register_message">
                 <p>

@@ -19,60 +19,66 @@ const generateAccessTokenAndRefreshToken = async function (userId) {
 };
 
 const registerUser = asyncHandler(async function (req, res) {
-  let { fullname, email, username, password } = req.body;
-  if (
-    [fullname, email, username, password].some((field) => field?.trim() === "")
-  ) {
-    throw new ApiError(400, "All Fields are required");
+  try {
+    let { fullname, email, username, password } = req.body;
+    if (
+      [fullname, email, username, password].some(
+        (field) => field?.trim() === ""
+      )
+    ) {
+      throw new ApiError(400, "All Fields are required");
+    }
+
+    let existedUser = await User.findOne({ $or: [{ email }, { username }] });
+
+    if (existedUser) {
+      throw new ApiError(401, "User Already registered with this credential");
+    }
+    let avatarLocalPath = req.files?.avatar[0]?.path;
+
+    let coverImageLocalPath;
+    if (
+      req.files &&
+      Array.isArray(req.files.coverImg) &&
+      req.files.coverImg.length > 0
+    ) {
+      coverImageLocalPath = req.files.coverImg[0].path;
+    }
+
+    if (!avatarLocalPath) {
+      throw new ApiError("401", "Avatar is required");
+    }
+
+    let avatar = await uploadOnCloudinay(avatarLocalPath);
+    let coverImg = await uploadOnCloudinay(coverImageLocalPath);
+
+    if (!avatar) {
+      throw new ApiError("401", "Avatar Uploading is failed");
+    }
+
+    let user = await User.create({
+      fullname: fullname,
+      username: username.toLowerCase(),
+      email: email,
+      password: password,
+      avatar: avatar.url,
+      coverImg: coverImg?.url || "",
+    });
+
+    let createdUser = await User.findById(user._id).select(
+      "-password -myUpload -followers -following -refreshToken"
+    );
+
+    if (!createdUser) {
+      throw new ApiError(500, "Somethig went wrong while registering user");
+    }
+
+    res
+      .status(201)
+      .send(new ApiResponse(200, createdUser, "Signed Up successfully"));
+  } catch (error) {
+    res.status(400).send(error.message);
   }
-
-  let existedUser = await User.findOne({ $or: [{ email }, { username }] });
-
-  if (existedUser) {
-    throw new ApiError(401, "User Already registered with this credential");
-  }
-  let avatarLocalPath = req.files?.avatar[0]?.path;
-
-  let coverImageLocalPath;
-  if (
-    req.files &&
-    Array.isArray(req.files.coverImg) &&
-    req.files.coverImg.length > 0
-  ) {
-    coverImageLocalPath = req.files.coverImg[0].path;
-  }
-
-  if (!avatarLocalPath) {
-    throw new ApiError("401", "Avatar is required");
-  }
-
-  let avatar = await uploadOnCloudinay(avatarLocalPath);
-  let coverImg = await uploadOnCloudinay(coverImageLocalPath);
-
-  if (!avatar) {
-    throw new ApiError("401", "Avatar Uploading is failed");
-  }
-
-  let user = await User.create({
-    fullname: fullname,
-    username: username.toLowerCase(),
-    email: email,
-    password: password,
-    avatar: avatar.url,
-    coverImg: coverImg?.url || "",
-  });
-
-  let createdUser = await User.findById(user._id).select(
-    "-password -myUpload -followers -following -refreshToken"
-  );
-
-  if (!createdUser) {
-    throw new ApiError(500, "Somethig went wrong while registering user");
-  }
-
-  res
-    .status(201)
-    .send(new ApiResponse(200, createdUser, "Signed Up successfully"));
 });
 
 const loginUser = async function (req, res) {
