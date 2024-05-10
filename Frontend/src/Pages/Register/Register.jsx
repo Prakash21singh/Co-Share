@@ -3,16 +3,20 @@ import Button from "../../components/Button/Button";
 import InputField from "../../components/Input/Input";
 import "./style.scss";
 import Uploader from "../../components/Uploader/Uploader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Loader from "../../components/Loader/Loader";
+
 const Register = () => {
+  const navigate = useNavigate();
+  const [isRegistered, setIsRegistered] = useState(false);
   const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [coverImg, setCoverImg] = useState();
-
+  const [error, setError] = useState("");
   function handleAvatar(selectedFile) {
     selectedFile ? setAvatar(selectedFile) : "";
   }
@@ -21,6 +25,7 @@ const Register = () => {
   }
 
   function handleRegister() {
+    setIsRegistered(true);
     if (!fullname) {
       alert("Fullname cannnot be empty");
     }
@@ -48,15 +53,23 @@ const Register = () => {
     formData.append("password", password);
     formData.append("avatar", avatar);
     formData.append("coverImg", coverImg ? coverImg : "");
-
-    axios
-      .post("http://localhost:3000/api/v1/user/register", formData, {
-        headers: "multipart/form-data",
-      })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err.response.data));
+    console.log(formData);
+    setTimeout(() => {
+      axios
+        .post("http://localhost:3000/api/v1/user/register", formData, {
+          headers: "multipart/form-data",
+        })
+        .then((res) => {
+          console.log(res.data);
+          setIsRegistered(false);
+          navigate("/login");
+        })
+        .catch((err) => {
+          setIsRegistered(false);
+          console.log(err);
+          setError(err.response.data);
+        });
+    }, 3000);
   }
 
   function handleFullname(e) {
@@ -75,6 +88,7 @@ const Register = () => {
 
   return (
     <>
+      {isRegistered && <Loader />}
       <div className="register_Container">
         <div className="left_content">
           <div className="inner_content">
@@ -156,6 +170,7 @@ const Register = () => {
                   onFileSelect={handleCoverImage}
                 />
               </div>
+              <div className="errorMsg">{error ? <p>{error}</p> : ""}</div>
               <br />
               <Button
                 text={"Register"}

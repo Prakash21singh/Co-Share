@@ -1,9 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../../components/Button/Button";
 import InputField from "../../components/Input/Input";
 import "./style.scss";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 const Login = () => {
+  const [identity, setIdentity] = useState("");
+  const [password, setPassword] = useState("");
+  async function handleLogin() {
+    if (!email) {
+      alert("Email is required");
+    }
+    if (!password) {
+      alert("Password is required");
+    }
+    let formData = new FormData();
+    formData.append("identification", identity);
+    formData.append("password", password);
+
+    axios
+      .post("http://localhost:3000/api/v1/user/login", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   return (
     <>
       <div className="login_Container">
@@ -38,6 +67,9 @@ const Login = () => {
             <div className="input_Fields">
               <h1>Co-Share Log In</h1>
               <InputField
+                handleChange={(e) => {
+                  setIdentity(e.target.value);
+                }}
                 width={"100%"}
                 id={"email"}
                 placeholder={"Email or username"}
@@ -46,6 +78,9 @@ const Login = () => {
                 margin="10px"
               />
               <InputField
+                handleChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 width={"100%"}
                 id={"password"}
                 placeholder={"Password"}
@@ -54,7 +89,12 @@ const Login = () => {
                 margin="0px 0px 10px 0px"
               />
               <br />
-              <Button text={"Log In"} width={"100%"} key={"Login"} />
+              <Button
+                text={"Log In"}
+                width={"100%"}
+                key={"Login"}
+                handleClick={handleLogin}
+              />
               <br />
               <div className="login_message">
                 <p>
