@@ -45,7 +45,6 @@ const Register = () => {
     if (!avatar) {
       alert("Avatar cannot be empty");
     }
-
     let formData = new FormData();
     formData.append("fullname", fullname);
     formData.append("email", email);
@@ -53,13 +52,13 @@ const Register = () => {
     formData.append("password", password);
     formData.append("avatar", avatar);
     formData.append("coverImg", coverImg ? coverImg : "");
+    startLoading();
 
     axios
       .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/register`, formData, {
         headers: "multipart/form-data",
       })
       .then((res) => {
-        startLoading();
         navigate("/login");
       })
       .catch((err) => {

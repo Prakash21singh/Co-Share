@@ -10,6 +10,7 @@ import { LoaderContext } from "../../contexts/loaderContext";
 const Login = () => {
   const { isLoading, startLoading, stopLoading } = useContext(LoaderContext);
 
+  startLoading();
   // const [isLoading, setIsLoading] = useState(false);
   const [identity, setIdentity] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +36,6 @@ const Login = () => {
       })
       .then((res) => {
         setError("");
-        startLoading();
         navigate("/");
       })
       .catch((error) => {
