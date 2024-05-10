@@ -73,6 +73,11 @@
         justify-content: center;
         flex-direction: column;
         position: relative;
+        .errorMsg {
+          color: red;
+          margin: 10px 0px;
+          font-size: 1.2rem;
+        }
         h1 {
           position: absolute;
           left: 0;

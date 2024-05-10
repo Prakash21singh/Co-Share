@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import Button from "../../components/Button/Button";
 import InputField from "../../components/Input/Input";
 import "./style.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Loader from "../../components/Loader/Loader";
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [identity, setIdentity] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
   async function handleLogin() {
+    setIsLoading(true);
     if (!email) {
       alert("Email is required");
     }
@@ -19,22 +24,29 @@ const Login = () => {
     formData.append("identification", identity);
     formData.append("password", password);
 
-    axios
-      .post("http://localhost:3000/api/v1/user/login", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setTimeout(() => {
+      axios
+        .post("http://localhost:3000/api/v1/user/login", formData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        })
+        .then((res) => {
+          setError("");
+          setIsLoading(false);
+          navigate("/");
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          setError(error.response.data.message);
+        });
+    }, 3000);
   }
   return (
     <>
+      {isLoading ? <Loader /> : null}
+
       <div className="login_Container">
         <div className="left_content">
           <div className="inner_content">
@@ -88,7 +100,7 @@ const Login = () => {
                 key={"password"}
                 margin="0px 0px 10px 0px"
               />
-              <br />
+              <div className="errorMsg">{error ? error : ""}</div>
               <Button
                 text={"Log In"}
                 width={"100%"}
