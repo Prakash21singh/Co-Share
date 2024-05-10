@@ -7,6 +7,8 @@ import User from "../models/user.model.js";
 const option = {
   httpOnly: true,
   secure: true,
+  sameSite: "None",
+  path: "/",
 };
 
 const generateAccessTokenAndRefreshToken = async function (userId) {
@@ -82,43 +84,49 @@ const registerUser = asyncHandler(async function (req, res) {
 });
 
 const loginUser = async function (req, res) {
-  let { identification, password } = req.body;
+  try {
+    let { identification, password } = req.body;
 
-  if (!identification) {
-    throw new ApiError(
-      401,
-      "Email or username is required",
-      "Please enter email or username for sign in"
+    if (!identification) {
+      throw new ApiError(
+        401,
+        "Email or username is required",
+        "Please enter email or username for sign in"
+      );
+    }
+
+    let user = await User.findOne({
+      $or: [{ email: identification }, { username: identification }],
+    });
+
+    if (!user) {
+      return res
+        .status(400)
+        .send({ message: "User does not exist in database" });
+    }
+
+    const ValidPassword = await user.isPasswordCorrect(password);
+
+    if (!ValidPassword) {
+      return res.status(400).json({ message: "Password is incorrect" });
+    }
+
+    let { accessToken, refreshToken } =
+      await generateAccessTokenAndRefreshToken(user._id);
+
+    let loggedInUser = await User.findById(user._id).select(
+      "-password -refreshToken -avatar -myUpload -coverImg"
     );
+
+    return res
+      .status(200)
+      .cookie("accessToken", accessToken, option)
+      .cookie("refreshToken", refreshToken, option)
+      .json({ accessToken, refreshToken, loggedInUser });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send(error.message);
   }
-
-  let user = await User.findOne({
-    $or: [{ email: identification }, { username: identification }],
-  });
-
-  if (!user) {
-    res.status(200).json({ message: "User does not exist in database" });
-  }
-
-  const ValidPassword = await user.isPasswordCorrect(password);
-
-  if (!ValidPassword) {
-    res.status(400).json({ message: "Invalid user credentials" });
-  }
-
-  let { accessToken, refreshToken } = await generateAccessTokenAndRefreshToken(
-    user._id
-  );
-
-  let loggedInUser = await User.findById(user._id).select(
-    "-password -refreshToken -avatar -myUpload -coverImg"
-  );
-
-  return res
-    .status(200)
-    .cookie("accessToken", accessToken)
-    .cookie("refreshToken", refreshToken)
-    .json({ accessToken, refreshToken, loggedInUser });
 };
 
 const logoutUser = function (req, res) {
