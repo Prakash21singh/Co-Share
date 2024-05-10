@@ -54,28 +54,21 @@ const Register = () => {
     formData.append("avatar", avatar);
     formData.append("coverImg", coverImg ? coverImg : "");
 
-    startLoading();
-    setTimeout(() => {
-      axios
-        .post(
-          `${import.meta.env.VITE_BACKEND}/api/v1/user/register`,
-          formData,
-          {
-            headers: "multipart/form-data",
-          }
-        )
-        .then((res) => {
-          console.log(res.data);
-          navigate("/login");
-        })
-        .catch((err) => {
-          console.log(err);
-          setError(err.response.data);
-        })
-        .finally(() => {
-          stopLoading();
-        });
-    }, 3000);
+    axios
+      .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/register`, formData, {
+        headers: "multipart/form-data",
+      })
+      .then((res) => {
+        startLoading();
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err.response.data);
+      })
+      .finally(() => {
+        stopLoading();
+      });
   }
 
   function handleFullname(e) {
