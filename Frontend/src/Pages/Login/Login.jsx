@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../../components/Button/Button";
 import InputField from "../../components/Input/Input";
 import "./style.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../components/Loader/Loader";
+import { LoaderContext } from "../../contexts/loaderContext";
 
 const Login = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading, startLoading, stopLoading } = useContext(LoaderContext);
+
+  // const [isLoading, setIsLoading] = useState(false);
   const [identity, setIdentity] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   async function handleLogin() {
-    setIsLoading(true);
     if (!email) {
       alert("Email is required");
     }
@@ -24,28 +26,28 @@ const Login = () => {
     formData.append("identification", identity);
     formData.append("password", password);
 
-    setTimeout(() => {
-      axios
-        .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/login`, formData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        })
-        .then((res) => {
-          setError("");
-          setIsLoading(false);
-          navigate("/");
-        })
-        .catch((error) => {
-          setIsLoading(false);
-          setError(error.response.data.message);
-        });
-    }, 3000);
+    axios
+      .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/login`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        setError("");
+        startLoading();
+        navigate("/");
+      })
+      .catch((error) => {
+        setError(error.response.data.message);
+      })
+      .finally(() => {
+        stopLoading();
+      });
   }
   return (
     <>
-      {isLoading ? <Loader /> : null}
+      {isLoading && <Loader />}
 
       <div className="login_Container">
         <div className="left_content">

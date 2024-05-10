@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../../components/Button/Button";
 import InputField from "../../components/Input/Input";
 import "./style.scss";
@@ -6,10 +6,11 @@ import Uploader from "../../components/Uploader/Uploader";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../components/Loader/Loader";
+import { LoaderContext } from "../../contexts/loaderContext";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [isRegistered, setIsRegistered] = useState(false);
+  const { isLoading, startLoading, stopLoading } = useContext(LoaderContext);
   const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -25,7 +26,6 @@ const Register = () => {
   }
 
   function handleRegister() {
-    setIsRegistered(true);
     if (!fullname) {
       alert("Fullname cannnot be empty");
     }
@@ -53,7 +53,8 @@ const Register = () => {
     formData.append("password", password);
     formData.append("avatar", avatar);
     formData.append("coverImg", coverImg ? coverImg : "");
-    console.log(formData);
+
+    startLoading();
     setTimeout(() => {
       axios
         .post(
@@ -65,13 +66,14 @@ const Register = () => {
         )
         .then((res) => {
           console.log(res.data);
-          setIsRegistered(false);
           navigate("/login");
         })
         .catch((err) => {
-          setIsRegistered(false);
           console.log(err);
           setError(err.response.data);
+        })
+        .finally(() => {
+          stopLoading();
         });
     }, 3000);
   }
@@ -92,7 +94,7 @@ const Register = () => {
 
   return (
     <>
-      {isRegistered && <Loader />}
+      {isLoading && <Loader />}
       <div className="register_Container">
         <div className="left_content">
           <div className="inner_content">
