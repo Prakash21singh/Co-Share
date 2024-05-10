@@ -56,9 +56,13 @@ const Register = () => {
     console.log(formData);
     setTimeout(() => {
       axios
-        .post("http://localhost:3000/api/v1/user/register", formData, {
-          headers: "multipart/form-data",
-        })
+        .post(
+          `${import.meta.env.VITE_BACKEND}/api/v1/user/register`,
+          formData,
+          {
+            headers: "multipart/form-data",
+          }
+        )
         .then((res) => {
           console.log(res.data);
           setIsRegistered(false);

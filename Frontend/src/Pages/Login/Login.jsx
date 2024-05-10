@@ -26,7 +26,7 @@ const Login = () => {
 
     setTimeout(() => {
       axios
-        .post("http://localhost:3000/api/v1/user/login", formData, {
+        .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/login`, formData, {
           headers: {
             "Content-Type": "application/json",
           },
