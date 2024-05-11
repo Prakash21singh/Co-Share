@@ -4,13 +4,23 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinay } from "../utils/cloudinary.js";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
-const option = {
-  httpOnly: true,
+const accessTokenOptions = {
+  httpOnly: false,
   secure: true,
-  sameSite: "None",
+  sameSite: "none",
+  maxAge: 24 * 60 * 60 * 1000, //  1 day
+  // domain: "https://co-share-client.vercel.app",
   path: "/",
 };
 
+const refreshTokenOptions = {
+  httpOnly: false,
+  secure: true,
+  sameSite: "none",
+  maxAge: 10 * 24 * 60 * 60 * 1000, // 10 days
+  // domain: "https://co-share-client.vercel.app",
+  path: "/",
+};
 const generateAccessTokenAndRefreshToken = async function (userId) {
   let user = await User.findById(userId);
   let accessToken = user.generateAccessToken();
@@ -120,8 +130,8 @@ const loginUser = async function (req, res) {
 
     return res
       .status(200)
-      .cookie("accessToken", accessToken, option)
-      .cookie("refreshToken", refreshToken, option)
+      .cookie("accessToken", accessToken, accessTokenOptions)
+      .cookie("refreshToken", refreshToken, refreshTokenOptions)
       .json({ accessToken, refreshToken, loggedInUser });
   } catch (error) {
     console.log(error);
