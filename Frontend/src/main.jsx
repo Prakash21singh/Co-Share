@@ -9,11 +9,12 @@ import Login from "./Pages/Login/Login";
 import Root from "./Root";
 import Error from "./ErrorPage";
 import Register from "./Pages/Register/Register";
-import { AuthContextProvider } from "./contexts/authContext";
+
 import LoaderContextProvider from "./contexts/LoaderContextProvider";
+import AuthContextProvider from "./contexts/AuthContextProvider";
 
 //Loading related
-const isLoggedIn = false;
+let isLoggedIn = false;
 const router = createBrowserRouter([
   {
     path: "/",

@@ -6,10 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../components/Loader/Loader";
 import { LoaderContext } from "../../contexts/loaderContext";
-
+import { AuthContext } from "../../contexts/authContext";
 const Login = () => {
   const { isLoading, startLoading, stopLoading } = useContext(LoaderContext);
-
+  const { setLoggedIn, setUser } = useContext(AuthContext);
   // const [isLoading, setIsLoading] = useState(false);
   const [identity, setIdentity] = useState("");
   const [password, setPassword] = useState("");
@@ -35,8 +35,11 @@ const Login = () => {
         withCredentials: true,
       })
       .then((res) => {
+        console.log(res);
         setError("");
         navigate("/");
+        setLoggedIn();
+        setUser(res.data.loggedInUser.username);
       })
       .catch((error) => {
         setError(error.response.data.message);
