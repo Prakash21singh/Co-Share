@@ -100,7 +100,11 @@ const Login = () => {
                 key={"password"}
                 margin="0px 0px 10px 0px"
               />
-              <div className="errorMsg">{error ? error : ""}</div>
+              {error ? (
+                <div className="errorMsg">{error ? `Error:${error}` : ""}</div>
+              ) : (
+                ""
+              )}
               <Button
                 text={"Log In"}
                 width={"100%"}
@@ -116,7 +120,6 @@ const Login = () => {
             </div>
           </div>
         </div>
-        {/* <div className="display_panel"></div> */}
       </div>
     </>
   );

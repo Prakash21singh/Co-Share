@@ -159,7 +159,7 @@ const Register = () => {
                   onFileSelect={handleCoverImage}
                 />
               </div>
-              <div className="errorMsg">{error ? <p>{error}</p> : ""}</div>
+              <div className="errorMsg">{error ? `Error:${error}` : ""}</div>
               <br />
               <Button
                 text={"Sign Up"}

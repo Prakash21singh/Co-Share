@@ -4,8 +4,8 @@ const Logout = () => {
   return (
     <>
       <svg
-        height={"44px"}
-        width={"44px"}
+        height={"34px"}
+        width={"34px"}
         viewBox="0 -0.5 25 25"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">

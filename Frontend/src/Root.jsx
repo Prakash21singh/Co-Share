@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import "./global.scss";
 import Logo from "./assets/icons/Logo";
 import Support from "./assets/icons/Support";
@@ -8,76 +8,132 @@ import Profile from "./assets/icons/Profile";
 import Users from "./assets/icons/Users";
 import InputField from "./components/Input/Input";
 import useAuth from "./contexts/authContext";
+import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
+import Logout from "./assets/icons/Logout";
 
 export default function Root() {
-  let { user } = useAuth();
-  console.log(user, "USERDATA");
-  function searchInputField() {}
+  // let { user } = useAuth();
+  let [user, setUser] = useState();
+  const navigate = useNavigate();
+  const handleLogout = useCallback(async (e) => {
+    try {
+      let res = await axios.post(
+        `${import.meta.env.VITE_BACKEND}/api/v1/user/logout`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      clearAllCookies();
+      localStorage.clear();
+      navigate("/login");
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  function clearAllCookies() {
+    const cookies = document.cookie.split(";");
 
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      const eqPos = cookie.indexOf("=");
+      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie =
+        name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    }
+  }
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND}/api/v1/user/data`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUser(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        throw new Error(error);
+      });
+  }, []);
   return (
-    <div className="main_section">
-      <div className="sidebar_navigation">
-        <div className="logo">
-          <NavLink to={"/"} className={"navlink"}>
-            <Logo /> &nbsp;&nbsp;<h3>ShareNest</h3>
-          </NavLink>
-        </div>
-        <div className="navigations">
-          {/* Navigations on sidebar */}
-          <NavLink
-            to={"/uploads"}
-            className={({ isActive }) => (isActive ? "link active" : "link")}>
-            <Uploads />
-            &nbsp;<h3>All Uploads</h3>
-          </NavLink>
-          <NavLink
-            to={"/upload"}
-            className={({ isActive }) => (isActive ? "link active" : "link")}>
-            <Upload />
-            &nbsp;<h3>Upload</h3>
-          </NavLink>
-          <NavLink
-            to={"/users"}
-            className={({ isActive }) => (isActive ? "link active" : "link")}>
-            <Users />
-            &nbsp;<h3>All Users</h3>
-          </NavLink>
-          <NavLink
-            to={"/profile"}
-            className={({ isActive }) => (isActive ? "link active" : "link")}>
-            <Profile />
-            &nbsp;<h3>My Profile</h3>
-          </NavLink>
-        </div>
-        <div className="support">
-          {" "}
-          <NavLink to={"/support"} className="navlink">
-            <Support /> &nbsp;&nbsp; Help and support
-          </NavLink>
+    <>
+      <div className="root_container">
+        <div className="container_item">
+          <div className="left_container">
+            <NavLink
+              to={"/uploads"}
+              className={({ isActive }) => (isActive ? "link active" : "link")}>
+              <Uploads /> &nbsp; Global Upload
+            </NavLink>
+            <NavLink
+              to={"/upload"}
+              className={({ isActive }) => (isActive ? "link active" : "link")}>
+              <Upload /> &nbsp; Upload
+            </NavLink>
+            <NavLink
+              to={"/users"}
+              className={({ isActive }) => (isActive ? "link active" : "link")}>
+              <Users /> &nbsp; Users
+            </NavLink>
+            <NavLink
+              to={"/my-upload"}
+              className={({ isActive }) => (isActive ? "link active" : "link")}>
+              <Upload /> &nbsp; MyUploads
+            </NavLink>
+            <NavLink
+              to={"/profile"}
+              className={({ isActive }) => (isActive ? "link active" : "link")}>
+              <Profile /> &nbsp; My Profile
+            </NavLink>
+          </div>
+          <div className="middle_container">
+            <Outlet />
+          </div>
+          <div className="right_container">
+            {/* Social media handle with all the thing */}
+            <div className="userProfile">
+              {/*
+               avatar
+               fullname
+               username
+               email
+               followers;
+               following
+               */}
+              <img src={user && user.avatar} alt="Profile Img" />
+              <span>
+                <h3>{user && user.username}</h3>
+              </span>
+              <span>
+                <h4>{user && user.fullname}</h4>
+              </span>
+              <span>
+                <h4>{user && user.email}</h4>
+              </span>
+              <span>
+                Followers:&nbsp;&nbsp;&nbsp;
+                <p>{user && user.followers.length}</p>
+              </span>
+              <span>
+                Following:&nbsp;&nbsp;&nbsp;
+                <p>{user && user.following.length}</p>
+              </span>
+              <NavLink to={"/"} onClick={handleLogout}>
+                <Logout />
+                Logout
+              </NavLink>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="content_section">
-        <div className="headerSection">
-          <div className="searchBar">
-            <InputField
-              type={"text"}
-              placeholder={"Search '/'"}
-              width={350}
-              handleChange={searchInputField}
-              backGroundColor={"#101010"}
-              textColor={"#ffffff"}
-              borderColor="#d400ff53"
-            />
-          </div>
-          <div className="user">
-            <img src={user?.avatar || ""} alt="Profile Pic" />
-            <h3>{user?.username || "Anonymous user"}</h3>
-          </div>
-        </div>
-        <div className="body_content">
-          <Outlet />
-        </div>
-      </div>
-    </div>
+      ;
+    </>
   );
 }

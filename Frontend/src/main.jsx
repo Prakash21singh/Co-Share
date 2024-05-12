@@ -33,6 +33,10 @@ const router = createBrowserRouter([
         path: "profile",
         element: <h1>This is my profile</h1>,
       },
+      {
+        path: "my-upload",
+        element: <h1>This is my upload section</h1>,
+      },
     ],
   },
   {
