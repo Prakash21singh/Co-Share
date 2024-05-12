@@ -125,7 +125,7 @@ const loginUser = async function (req, res) {
       await generateAccessTokenAndRefreshToken(user._id);
 
     let loggedInUser = await User.findById(user._id).select(
-      "-password -refreshToken -avatar -myUpload -coverImg"
+      "-password -refreshToken -myUpload"
     );
 
     return res
