@@ -73,7 +73,7 @@ export default function Root() {
             />
           </div>
           <div className="user">
-            <img src={user?.avatar.toString() || ""} alt="Profile Pic" />
+            <img src={user?.avatar || ""} alt="Profile Pic" />
             <h3>{user?.username || "Anonymous user"}</h3>
           </div>
         </div>
