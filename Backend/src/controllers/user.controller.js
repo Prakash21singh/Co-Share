@@ -153,8 +153,8 @@ const logoutUser = function (req, res) {
   );
   return res
     .status(200)
-    .clearCookie("accessToken", option)
-    .clearCookie("refreshToken", option)
+    .clearCookie("accessToken", accessTokenOptions)
+    .clearCookie("refreshToken", refreshTokenOptions)
     .json(new ApiResponse(200, {}, "User logged Out"));
 };
 
@@ -186,4 +186,23 @@ const refreshAccessToken = function (req, res) {
     .json({ data: newRefreshToken, accessToken }, "Access Token Refreshed");
 };
 
-export { refreshAccessToken, logoutUser, loginUser, registerUser };
+function getUsersData(req, res) {
+  User.findById(req.user._id)
+    .select("-password -refreshToken")
+    .then((user) => {
+      return res.status(200).json(user);
+    })
+    .catch((error) => {
+      return res
+        .status(400)
+        .json({ message: "Something went wrong while getting user data  " });
+    });
+}
+
+export {
+  refreshAccessToken,
+  logoutUser,
+  loginUser,
+  registerUser,
+  getUsersData,
+};

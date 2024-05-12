@@ -4,10 +4,10 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinay } from "../utils/cloudinary.js";
-export const getAllUploads = asyncHandler(async function (req, res) {
+export const getMyUploads = asyncHandler(async function (req, res) {
   try {
     //Change this to req.user?._id in deployement state
-    let userId = req.params.id;
+    let userId = req.user._id;
     let user = await User.findById(userId).populate("myUpload");
     if (!user) {
       throw new ApiError(
@@ -24,6 +24,19 @@ export const getAllUploads = asyncHandler(async function (req, res) {
     return res.send(new ApiError(401, error.message, error));
   }
 });
+
+export const getAllUpload = async function (req, res) {
+  try {
+    let uploads = await Upload.find({}).populate(
+      "createdBy",
+      "-password -refreshToken"
+    );
+    return res.status(200).json({ data: uploads });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+};
 
 export const getUpload = asyncHandler(async function (req, res) {
   try {
@@ -45,7 +58,7 @@ export const getUpload = asyncHandler(async function (req, res) {
 export const createUpload = asyncHandler(async function (req, res) {
   try {
     //Change this in deployment state to req.user._id
-    let userId = req.params.id;
+    let userId = req.user._id;
     let { title, description } = req.body;
     if ([title, description].some((field) => field.trim() === "")) {
       throw new ApiError(401, "Title and description are required");
@@ -66,6 +79,7 @@ export const createUpload = asyncHandler(async function (req, res) {
       title,
       description,
       upload: uploadFile?.url,
+      createdBy: req.user._id,
     });
     let user = await User.findById(userId);
 

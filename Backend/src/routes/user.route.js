@@ -3,10 +3,12 @@ import {
   logoutUser,
   refreshAccessToken,
   registerUser,
+  getUsersData,
 } from "../controllers/user.controller.js";
 import { verifyJwt } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
 const routeConfig = function (app) {
+  app.get("/api/v1/user/data", verifyJwt, getUsersData);
   app.post(
     "/api/v1/user/register",
     upload.fields([

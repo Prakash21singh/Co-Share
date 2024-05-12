@@ -1,18 +1,20 @@
 import {
   createUpload,
   deleteUpload,
-  getAllUploads,
+  getMyUploads,
   getUpload,
+  getAllUpload,
   updateUpload,
 } from "../controllers/upload.controller.js";
+import { verifyJwt } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
 const routeConfig = function (app) {
-  app.get("/api/v1/user/uploads/:id", getAllUploads);
-
-  app.get("/api/v1/user/upload/:uploadId", getUpload);
-
+  app.get("/api/v1/user/my-uploads", verifyJwt, getMyUploads);
+  app.get("/api/v1/user/upload/:uploadId", verifyJwt, getUpload);
+  app.get("/api/v1/user/getAllUploads", verifyJwt, getAllUpload);
   app.post(
-    "/api/v1/user/upload/:id",
+    "/api/v1/user/upload/",
+    verifyJwt,
     upload.fields([
       {
         name: "Upload",
