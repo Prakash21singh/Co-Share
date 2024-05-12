@@ -6,7 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../components/Loader/Loader";
 import { LoaderContext } from "../../contexts/loaderContext";
+import useAuth from "../../contexts/authContext";
 const Login = () => {
+  let { authenticateUser } = useAuth();
   const { isLoading, startLoading, stopLoading } = useContext(LoaderContext);
   // const [isLoading, setIsLoading] = useState(false);
   const [identity, setIdentity] = useState("");
@@ -34,12 +36,14 @@ const Login = () => {
       })
       .then((res) => {
         console.log(res.data);
+        authenticateUser();
         let { accessToken, loggedInUser, refreshToken } = res.data;
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("userData", loggedInUser);
         setError("");
         navigate("/");
+        console.log("Kya hua navigate ka");
       })
       .catch((error) => {
         console.log(error);
