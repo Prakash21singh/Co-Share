@@ -6,8 +6,6 @@ import Upload from "./assets/icons/Upload";
 import Uploads from "./assets/icons/Uploads";
 import Profile from "./assets/icons/Profile";
 import Users from "./assets/icons/Users";
-import InputField from "./components/Input/Input";
-import useAuth from "./contexts/authContext";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Logout from "./assets/icons/Logout";
