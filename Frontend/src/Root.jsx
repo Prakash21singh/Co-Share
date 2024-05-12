@@ -26,22 +26,19 @@ export default function Root() {
           {/* Navigations on sidebar */}
           <NavLink
             to={"/uploads"}
-            className={({ isActive }) => (isActive ? "link active" : "link")}
-            activeClassNam="activeLink">
+            className={({ isActive }) => (isActive ? "link active" : "link")}>
             <Uploads />
             &nbsp;<h3>All Uploads</h3>
           </NavLink>
           <NavLink
             to={"/upload"}
-            className={({ isActive }) => (isActive ? "link active" : "link")}
-            activeClassNam="activeLink">
+            className={({ isActive }) => (isActive ? "link active" : "link")}>
             <Upload />
             &nbsp;<h3>Upload</h3>
           </NavLink>
           <NavLink
             to={"/users"}
-            className={({ isActive }) => (isActive ? "link active" : "link")}
-            activeClassNam="activeLink">
+            className={({ isActive }) => (isActive ? "link active" : "link")}>
             <Users />
             &nbsp;<h3>All Users</h3>
           </NavLink>
