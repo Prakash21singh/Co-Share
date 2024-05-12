@@ -36,11 +36,10 @@ const Login = () => {
       })
       .then((res) => {
         console.log(res.data);
-        authenticateUser();
         let { accessToken, loggedInUser, refreshToken } = res.data;
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
-        localStorage.setItem("userData", loggedInUser);
+        localStorage.setItem("userData", JSON.stringify(loggedInUser));
         setError("");
         navigate("/");
         console.log("Kya hua navigate ka");

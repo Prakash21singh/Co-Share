@@ -15,3 +15,116 @@ body {
   position: relative;
   overflow: hidden;
 }
+
+.main_section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  .navlink {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  .sidebar_navigation {
+    width: 20%;
+    background-color: #191919;
+    // border: 2px solid red;
+    height: 100%;
+    border-right: 2px solid #3d1d6d;
+    padding: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    .logo {
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      text-shadow: 3px 3px 18px rgb(141, 27, 247);
+      height: 8%;
+      border-bottom: 2px dashed #d400ff53;
+    }
+    .navigations {
+      flex: 1;
+      padding: 5px;
+      margin-top: 22px;
+      display: flex;
+      justify-content: start;
+      flex-direction: column;
+      .link {
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        vertical-align: middle;
+        padding: 10px;
+        text-decoration: none;
+        transition: 0.4s all;
+        color: white;
+        margin-bottom: 10px;
+        &:hover {
+          background-color: rgba($color: #121111, $alpha: 1);
+        }
+        h3 {
+          font-size: 1.2rem;
+          margin-left: 10px;
+        }
+      }
+      .active {
+        background-color: rgba($color: #121111, $alpha: 1);
+      }
+    }
+    .support {
+      height: 8%;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top: 2px dashed #d400ff53;
+    }
+  }
+  .content_section {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .headerSection {
+      height: 75px;
+      background-color: #191919;
+      border-bottom: 1px solid #d400ff53;
+      padding: 10px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .user {
+        display: flex;
+        align-items: end;
+        justify-content: space-around;
+        width: 15%;
+        position: relative;
+        margin-right: 10px;
+        min-width: max-content;
+        img {
+          height: 40px;
+          width: 40px;
+          object-fit: cover;
+          border-radius: 50%;
+          margin-right: 5px;
+        }
+      }
+    }
+    .body_content {
+      padding: 10px;
+      background-color: #101010;
+      height: 100%;
+      position: relative;
+    }
+  }
+}

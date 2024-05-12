@@ -18,8 +18,20 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
+        path: "uploads",
+        element: <h1>This is all uploads section</h1>,
+      },
+      {
+        path: "upload",
+        element: <h1>This is upload section</h1>,
+      },
+      {
+        path: "users",
+        element: <h1>This is All Users</h1>,
+      },
+      {
         path: "profile",
-        element: <h1>This is profile</h1>,
+        element: <h1>This is my profile</h1>,
       },
     ],
   },

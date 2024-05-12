@@ -8,6 +8,9 @@ const InputField = ({
   margin = "0px",
   padding = "10px",
   handleChange,
+  backGroundColor = "",
+  textColor = "",
+  borderColor = "",
 }) => {
   return (
     <>
@@ -22,6 +25,9 @@ const InputField = ({
           height: height,
           padding: padding,
           margin: margin,
+          backgroundColor: backGroundColor,
+          color: textColor,
+          borderColor: borderColor,
         }}
       />
     </>
