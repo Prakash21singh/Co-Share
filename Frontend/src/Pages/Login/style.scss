@@ -5,6 +5,10 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  background: url("../../assets/images/BackgroundImage.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   .display_panel {
     position: absolute;
     width: 700px;
@@ -41,13 +45,17 @@
         color: rgb(105, 102, 102);
       }
       .content {
+        // backdrop-filter: blur(10px);
         h2 {
           text-align: center;
           font-size: 2rem;
           font-weight: 800;
           background: linear-gradient(to right, #4c877c, #194056, #488aaf);
           background-clip: text;
-          color: transparent;
+          color: #d400ff8c;
+        }
+        p {
+          color: #f2f2f2;
         }
       }
     }
@@ -89,7 +97,7 @@
             color: gray;
             a {
               text-decoration: none;
-              color: #1c3b5f;
+              color: #8e1c75;
             }
           }
         }

@@ -90,18 +90,11 @@ const Register = () => {
       <div className="register_Container">
         <div className="left_content">
           <div className="inner_content">
-            <div className="back_button">
-              <Button
-                text={"◀ Go Back"}
-                key={"back"}
-                width={100}
-                borderRadius={3}
-                fontSize="14px"
-              />
-            </div>
+            <div className="back_button"></div>
             <br />
             <div className="content">
-              <h2>Co-Share</h2>
+              <h2>Co-Share Sign Up</h2>
+              <br />
               <p>Welcome to Co-share</p>
               <p>
                 <b>Co-share</b> is a collaborative sharing platform designed to
@@ -117,14 +110,12 @@ const Register = () => {
         <div className="right_content">
           <div className="inner_content">
             <div className="input_Fields">
-              <h1>Co-Share Register</h1>
               <InputField
                 width={"100%"}
                 id={"fullname"}
                 placeholder={"Fullname"}
                 type={"text"}
                 key={"fullname"}
-                margin="10px"
                 handleChange={handleFullname}
               />
               <InputField
@@ -171,7 +162,7 @@ const Register = () => {
               <div className="errorMsg">{error ? <p>{error}</p> : ""}</div>
               <br />
               <Button
-                text={"Register"}
+                text={"Sign Up"}
                 width={"100%"}
                 key={"register"}
                 handleClick={handleRegister}
@@ -179,13 +170,12 @@ const Register = () => {
               <br />
               <div className="register_message">
                 <p>
-                  Already have an account?.. <Link to="/login">Log In Now</Link>
+                  Already have an account?.. <Link to="/login">Log In</Link>
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <div className="display_panel"></div>
       </div>
     </>
   );

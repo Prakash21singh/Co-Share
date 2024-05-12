@@ -59,18 +59,10 @@ const Login = () => {
       <div className="login_Container">
         <div className="left_content">
           <div className="inner_content">
-            <div className="back_button">
-              <Button
-                text={"◀ Go Back"}
-                key={"back"}
-                width={100}
-                borderRadius={3}
-                fontSize="14px"
-              />
-            </div>
+            <div className="back_button"></div>
             <br />
             <div className="content">
-              <h2>Co-Share</h2>
+              <h2>Co-Share Login</h2>
               <p>Welcome to Co-share</p>
               <p>
                 <b>Co-share</b> is a collaborative sharing platform designed to
@@ -86,7 +78,6 @@ const Login = () => {
         <div className="right_content">
           <div className="inner_content">
             <div className="input_Fields">
-              <h1>Co-Share Log In</h1>
               <InputField
                 handleChange={(e) => {
                   setIdentity(e.target.value);
@@ -119,14 +110,13 @@ const Login = () => {
               <br />
               <div className="login_message">
                 <p>
-                  Doesn't have an account?..{" "}
-                  <Link to="/register">Register Now</Link>
+                  Doesn't have an account?.. <Link to="/register">Sign Up</Link>
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <div className="display_panel"></div>
+        {/* <div className="display_panel"></div> */}
       </div>
     </>
   );
