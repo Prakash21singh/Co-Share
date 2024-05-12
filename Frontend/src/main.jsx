@@ -9,6 +9,7 @@ import LoaderContextProvider from "./contexts/LoaderContextProvider";
 import ProtectedRoute from "./components/Protected/ProtectedRoute";
 import AuthContextProvider from "./contexts/AuthContextProvider";
 import Authenticated from "./components/Autenticated/Authenticated";
+import Index from "./Pages/Index/Index";
 
 //Loading related
 const router = createBrowserRouter([
@@ -16,7 +17,9 @@ const router = createBrowserRouter([
     path: "/",
     element: <ProtectedRoute element={Root}></ProtectedRoute>,
     errorElement: <Error />,
+
     children: [
+      { index: true, element: <Index /> },
       {
         path: "uploads",
         element: <h1>This is all uploads section</h1>,

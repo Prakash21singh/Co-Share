@@ -97,35 +97,31 @@ export default function Root() {
           <div className="right_container">
             {/* Social media handle with all the thing */}
             <div className="userProfile">
-              {/*
-               avatar
-               fullname
-               username
-               email
-               followers;
-               following
-               */}
-              <img src={user && user.avatar} alt="Profile Img" />
+              <div className="coverImg">
+                <img
+                  src={
+                    (user && user.coverImg) ||
+                    "https://images.pexels.com/photos/315938/pexels-photo-315938.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  }
+                  alt="Cover Image"
+                  className="coverImg"
+                />
+                <img
+                  src={user && user.avatar}
+                  alt="Profile Img"
+                  className="avatar"
+                />
+              </div>
               <span>
                 <h3>{user && user.username}</h3>
               </span>
               <span>
                 <h4>{user && user.fullname}</h4>
               </span>
-              <span>
-                <h4>{user && user.email}</h4>
-              </span>
-              <span>
-                Followers:&nbsp;&nbsp;&nbsp;
-                <p>{user && user.followers.length}</p>
-              </span>
-              <span>
-                Following:&nbsp;&nbsp;&nbsp;
-                <p>{user && user.following.length}</p>
-              </span>
+
               <NavLink to={"/"} onClick={handleLogout}>
                 <Logout />
-                Logout
+                &nbsp; <h3>Logout</h3>
               </NavLink>
             </div>
           </div>
