@@ -26,8 +26,8 @@ export default function Root() {
           },
         }
       );
-      clearAllCookies();
-      localStorage.clear();
+      await clearAllCookies();
+      await localStorage.clear();
       navigate("/login");
       console.log(res.data);
     } catch (error) {
@@ -120,7 +120,7 @@ export default function Root() {
                   <h4>{user && user.fullname}</h4>
                 </span>
               </div>
-              <NavLink to={"/"} onClick={handleLogout}>
+              <NavLink onClick={handleLogout}>
                 <Logout />
                 &nbsp; <h3>Logout</h3>
               </NavLink>
