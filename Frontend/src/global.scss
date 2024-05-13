@@ -102,12 +102,23 @@ body {
         flex-direction: column;
         align-items: center;
         overflow: hidden;
-        justify-content: center;
+        justify-content: start;
         font-family: "Poppins", sans-serif;
         font-weight: 400;
         font-style: normal;
         font-size: 1.1rem;
         position: relative;
+        hr {
+          width: 100%;
+        }
+        .userAbout {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          margin-bottom: 100px;
+        }
         .coverImg {
           width: 100%;
           height: 150px;
@@ -117,20 +128,21 @@ body {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            box-shadow: 0 0 5px 3px #500b86;
+            box-shadow: 0 0 5px 3px #8e1c75;
+            opacity: 0.5;
           }
           .avatar {
             position: absolute;
             z-index: 10;
-            right: 3rem;
-            top: 30%;
-            transform: translate(50%, -50%);
+            left: 50%;
+            top: 90%;
+            transform: translate(-50%, -50%);
             width: 80px;
             height: 80px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 10px;
-            box-shadow: 0px 0px 20px 5px rgb(44, 7, 96);
+            box-shadow: 0px 0px 20px 35px rgba(44, 7, 96, 0.4);
           }
         }
         h4 {

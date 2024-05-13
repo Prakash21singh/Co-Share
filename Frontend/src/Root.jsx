@@ -112,13 +112,14 @@ export default function Root() {
                   className="avatar"
                 />
               </div>
-              <span>
-                <h3>{user && user.username}</h3>
-              </span>
-              <span>
-                <h4>{user && user.fullname}</h4>
-              </span>
-
+              <div className="userAbout">
+                <span>
+                  <h3>{user && user.username}</h3>
+                </span>
+                <span>
+                  <h4>{user && user.fullname}</h4>
+                </span>
+              </div>
               <NavLink to={"/"} onClick={handleLogout}>
                 <Logout />
                 &nbsp; <h3>Logout</h3>

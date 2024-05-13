@@ -1,11 +1,12 @@
 import React from "react";
 import "./style.scss";
+import Loader from "../../components/DefaultLoader/Loader";
 
 const Index = () => {
   return (
     <>
       <div className="IndexContainer">
-        <h1>Share and Care</h1>
+        <Loader />
       </div>
     </>
   );
