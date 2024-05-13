@@ -68,12 +68,12 @@ export default function Root() {
             <NavLink
               to={"/uploads"}
               className={({ isActive }) => (isActive ? "link active" : "link")}>
-              <Uploads /> &nbsp; Global Upload
+              <Uploads /> &nbsp; Global Uploads
             </NavLink>
             <NavLink
               to={"/upload"}
               className={({ isActive }) => (isActive ? "link active" : "link")}>
-              <Upload /> &nbsp; Upload
+              <Upload /> &nbsp; Upload File
             </NavLink>
             <NavLink
               to={"/users"}

@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/Protected/ProtectedRoute";
 import AuthContextProvider from "./contexts/AuthContextProvider";
 import Authenticated from "./components/Autenticated/Authenticated";
 import Index from "./Pages/Index/Index";
+import GlobalUpload from "./Pages/GlobalUpload/GlobalUpload";
 
 //Loading related
 const router = createBrowserRouter([
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
       { index: true, element: <Index /> },
       {
         path: "uploads",
-        element: <h1>This is all uploads section</h1>,
+        element: <GlobalUpload />,
       },
       {
         path: "upload",
