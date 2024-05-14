@@ -25,7 +25,7 @@ const Register = () => {
     selectedFile ? setCoverImg(selectedFile) : "";
   }
 
-  function handleRegister() {
+  async function handleRegister() {
     if (!fullname) {
       alert("Fullname cannnot be empty");
     }
@@ -53,7 +53,6 @@ const Register = () => {
     formData.append("avatar", avatar);
     formData.append("coverImg", coverImg ? coverImg : "");
     startLoading();
-
     axios
       .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/register`, formData, {
         headers: { Accept: "multipart/form-data" },
