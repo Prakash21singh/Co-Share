@@ -17,6 +17,7 @@ app.use(
   cors({
     origin: "https://co-share-client.vercel.app",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 
