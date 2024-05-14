@@ -10,7 +10,7 @@ import { upload } from "../middlewares/multer.middleware.js";
 const routeConfig = function (app) {
   app.get("/api/v1/user/data", verifyJwt, getUsersData);
   app.post(
-    "/api/v1/user/register",
+    "/api/v1/user/signup",
     upload.fields([
       {
         name: "avatar",
