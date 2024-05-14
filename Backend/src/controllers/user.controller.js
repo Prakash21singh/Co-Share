@@ -61,8 +61,8 @@ const registerUser = asyncHandler(async function (req, res) {
       throw new ApiError("401", "Avatar is required");
     }
 
-    // let avatar = await uploadOnCloudinay(avatarLocalPath);
-    // let coverImg = await uploadOnCloudinay(coverImageLocalPath);
+    let avatar = await uploadOnCloudinay(avatarLocalPath);
+    let coverImg = await uploadOnCloudinay(coverImageLocalPath);
 
     if (!avatar) {
       throw new ApiError("401", "Avatar Uploading is failed");
@@ -73,8 +73,8 @@ const registerUser = asyncHandler(async function (req, res) {
       username: username.toLowerCase(),
       email: email,
       password: password,
-      // avatar: avatar.url,
-      // coverImg: coverImg?.url || "",
+      avatar: avatar.url,
+      coverImg: coverImg?.url || "",
     });
 
     let createdUser = await User.findById(user._id).select(

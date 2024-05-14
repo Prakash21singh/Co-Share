@@ -11,16 +11,16 @@ const routeConfig = function (app) {
   app.get("/api/v1/user/data", verifyJwt, getUsersData);
   app.post(
     "/api/v1/user/signup",
-    // upload.fields([
-    //   {
-    //     name: "avatar",
-    //     maxCount: 1,
-    //   },
-    //   {
-    //     name: "coverImg",
-    //     maxCount: 1,
-    //   },
-    // ]),
+    upload.fields([
+      {
+        name: "avatar",
+        maxCount: 1,
+      },
+      {
+        name: "coverImg",
+        maxCount: 1,
+      },
+    ]),
     registerUser
   );
   app.post("/api/v1/user/login", loginUser);
