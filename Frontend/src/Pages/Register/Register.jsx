@@ -56,6 +56,7 @@ const Register = () => {
     axios
       .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/register`, formData, {
         headers: { Accept: "multipart/form-data" },
+        withCredentials: true,
       })
       .then((res) => {
         navigate("/login");
