@@ -16,10 +16,10 @@ const uploadOnCloudinay = async (localfilepath) => {
     const upload = await cloudinary.uploader.upload(localfilepath, {
       resource_type: "auto",
     });
-    // fs.unlinkSync(localfilepath);
+    fs.unlinkSync(localfilepath);
     return upload;
   } catch (error) {
-    // fs.unlinkSync(localfilepath);
+    fs.unlinkSync(localfilepath);
     return null;
   }
 };
