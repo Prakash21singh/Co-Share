@@ -53,21 +53,38 @@ const Register = () => {
     formData.append("avatar", avatar);
     formData.append("coverImg", coverImg ? coverImg : "");
     startLoading();
-    axios
-      .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/register`, formData, {
-        headers: { Accept: "multipart/form-data" },
-        withCredentials: true,
-      })
-      .then((res) => {
-        navigate("/login");
-      })
-      .catch((err) => {
-        console.log(err);
-        setError(err.response.data);
-      })
-      .finally(() => {
-        stopLoading();
-      });
+    // axios
+    //   .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/register`, formData, {
+    //     headers: { Accept: "multipart/form-data" },
+    //     withCredentials: true,
+    //   })
+    //   .then((res) => {
+    //     navigate("/login");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     setError(err.response.data);
+    //   })
+    //   .finally(() => {
+    //     stopLoading();
+    //   });
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND}/api/v1/user/register`,
+        formData,
+        {
+          headers: {
+            Accept: "mutlipart/form-data",
+          },
+        }
+      );
+      console.log(await response.json());
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      stopLoading();
+    }
   }
 
   function handleFullname(e) {
