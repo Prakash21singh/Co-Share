@@ -15,8 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 // );
 app.use(
   cors({
-    // origin: "https://co-share-client.vercel.app",
-    origin: "*",
+    origin: "https://co-share-client.vercel.app",
+    // origin: "*",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
