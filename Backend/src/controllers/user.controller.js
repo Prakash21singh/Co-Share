@@ -32,7 +32,6 @@ const generateAccessTokenAndRefreshToken = async function (userId) {
 
 const registerUser = asyncHandler(async function (req, res) {
   try {
-    console.log(req.body);
     let { fullname, email, username, password } = req.body;
     if (
       [fullname, email, username, password].some(
@@ -83,7 +82,7 @@ const registerUser = asyncHandler(async function (req, res) {
     );
 
     if (!createdUser) {
-      throw new ApiError(500, "Somethig went wrong while registering user");
+      throw new ApiError(500, "Something went wrong while registering user");
     }
 
     res
