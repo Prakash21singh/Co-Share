@@ -3,7 +3,7 @@ import { Upload } from "../models/upload.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { uploadOnCloudinay } from "../cloudinary.js";
+import { uploadOnCloudinay } from "../utils/cloudinary.js";
 export const getMyUploads = asyncHandler(async function (req, res) {
   try {
     //Change this to req.user?._id in deployement state
