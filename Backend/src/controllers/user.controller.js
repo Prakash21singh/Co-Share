@@ -38,13 +38,16 @@ const registerUser = asyncHandler(async function (req, res) {
         (field) => field?.trim() === ""
       )
     ) {
-      throw new ApiError(400, "All Fields are required");
+      //Use this format to return error
+      return res.status(400).send({ message: "All Fields are required" });
     }
 
     let existedUser = await User.findOne({ $or: [{ email }, { username }] });
 
     if (existedUser) {
-      throw new ApiError(401, "User Already registered with this credential");
+      return res
+        .status(401)
+        .send({ message: "User already registered with this email/username" });
     }
     let avatarLocalPath = req.files?.avatar[0]?.path;
 
@@ -58,14 +61,14 @@ const registerUser = asyncHandler(async function (req, res) {
     }
 
     if (!avatarLocalPath) {
-      throw new ApiError("401", "Avatar is required");
+      return res.status(400).send({ message: "Avatar is required" });
     }
 
     let avatar = await uploadOnCloudinay(avatarLocalPath);
     let coverImg = await uploadOnCloudinay(coverImageLocalPath);
 
     if (!avatar) {
-      throw new ApiError("401", "Avatar Uploading is failed");
+      return res.status(501).send({ message: "Failed to upload Avatar!!" });
     }
 
     let user = await User.create({
@@ -82,14 +85,16 @@ const registerUser = asyncHandler(async function (req, res) {
     );
 
     if (!createdUser) {
-      throw new ApiError(500, "Something went wrong while registering user");
+      return res
+        .status(400)
+        .send({ message: "Something went wrong while registering user" });
     }
-
     res
       .status(201)
       .send(new ApiResponse(200, createdUser, "Signed Up successfully"));
   } catch (error) {
-    res.status(400).send(error.message);
+    console.log(error);
+    res.status(400).send(error);
   }
 });
 
