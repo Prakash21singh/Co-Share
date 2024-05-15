@@ -1,22 +1,24 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import "./global.scss";
-import Logo from "./assets/icons/Logo";
-import Support from "./assets/icons/Support";
 import Upload from "./assets/icons/Upload";
 import Uploads from "./assets/icons/Uploads";
 import Profile from "./assets/icons/Profile";
 import Users from "./assets/icons/Users";
-import { useCallback, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Logout from "./assets/icons/Logout";
+import { LoaderContext } from "./contexts/loaderContext";
+import Loader from "./components/Loader/Loader";
 
 export default function Root() {
   // let { user } = useAuth();
+  const { isLoading, startLoading, stopLoading } = useContext(LoaderContext);
   let [user, setUser] = useState();
   const navigate = useNavigate();
-  const handleLogout = useCallback(async (e) => {
-    try {
-      let res = await axios.post(
+  const handleLogout = function () {
+    startLoading();
+    axios
+      .post(
         `${import.meta.env.VITE_BACKEND}/api/v1/user/logout`,
         {},
         {
@@ -25,15 +27,23 @@ export default function Root() {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         }
-      );
-      await clearAllCookies();
-      await localStorage.clear();
-      navigate("/login");
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  });
+      )
+      .then((res) => {
+        console.log(res.data);
+        clearAllCookies();
+        localStorage.clear();
+      })
+      .then(() => {
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        stopLoading();
+      });
+  };
+
   function clearAllCookies() {
     const cookies = document.cookie.split(";");
 
@@ -52,7 +62,7 @@ export default function Root() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setUser(res.data);
       })
       .catch((error) => {
@@ -62,6 +72,7 @@ export default function Root() {
   }, []);
   return (
     <>
+      {isLoading && <Loader />}
       <div className="root_container">
         <div className="container_item">
           <div className="left_container">

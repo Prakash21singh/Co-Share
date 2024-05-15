@@ -42,11 +42,10 @@ const Login = () => {
         localStorage.setItem("userData", JSON.stringify(loggedInUser));
         setError("");
         navigate("/");
-        console.log("Kya hua navigate ka");
       })
       .catch((error) => {
         console.log(error);
-        setError(error.response.data.message);
+        setError(error.response?.data.message);
       })
       .finally(() => {
         stopLoading();

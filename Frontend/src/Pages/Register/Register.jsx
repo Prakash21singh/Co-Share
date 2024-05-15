@@ -42,68 +42,42 @@ const Register = () => {
       alert("Password cannot be empty");
     }
 
-    // if (!avatar) {
-    //   alert("Avatar cannot be empty");
-    // }
+    if (!avatar) {
+      alert("Avatar cannot be empty");
+    }
     let formData = new FormData();
     formData.append("fullname", fullname);
     formData.append("email", email);
     formData.append("username", username);
     formData.append("password", password);
-    // formData.append("avatar", avatar);
-    // formData.append("coverImg", coverImg ? coverImg : "");
+    formData.append("avatar", avatar);
+    formData.append("coverImg", coverImg ? coverImg : "");
     startLoading();
-    // axios
-    //   .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/signup`, formData, {
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //     withCredentials: true,
-    //   })
-    //   .then((res) => {
-    //     navigate("/login");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setError(err.response.data);
-    //   })
-    //   .finally(() => {
-    //     stopLoading();
-    //   });
     axios
       .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/signup`, formData, {
-        headers: {
-          //  "Content-Type": "multipart/form-data"
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
         navigate("/login");
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
-        setError(err.response.data);
+        setError(err.response?.data?.message);
+        if (err.message == "Network Error") {
+          setError(
+            "Sorry!! for the inconvenience use this credentials to explore website \n Email:demo@coshare.club \n Password:12341234"
+          );
+          return;
+        }
+        if (err.name === "AxiosError") {
+          setError(
+            "Sorry!! for the inconvenience use this credentials to explore website \n Email:demo@coshare.club \n Password:12341234"
+          );
+        }
       })
       .finally(() => {
         stopLoading();
       });
-    // try {
-    //   const response = await axios.post(
-    //     `${import.meta.env.VITE_BACKEND}/api/v1/user/signup`,
-    //     formData,
-    //     {
-    //       headers: {
-    //         Accept: "mutlipart/form-data",
-    //       },
-    //     }
-    //   );
-    //   console.log(await response.json());
-    //   navigate("/login");
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   stopLoading();
-    // }
   }
 
   function handleFullname(e) {
