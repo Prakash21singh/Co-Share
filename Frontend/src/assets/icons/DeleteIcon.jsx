@@ -3,16 +3,40 @@ import React from "react";
 const DeleteIcon = () => {
   return (
     <svg
-      width="24"
-      height="30"
-      viewBox="0 0 28 30"
-      fillRule="none"
-      xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M26.375 6H21.875V3.1875C21.875 1.94648 20.866 0.9375 19.625 0.9375H8.375C7.13398 0.9375 6.125 1.94648 6.125 3.1875V6H1.625C1.00273 6 0.5 6.50273 0.5 7.125V8.25C0.5 8.40469 0.626562 8.53125 0.78125 8.53125H2.90469L3.77305 26.918C3.8293 28.1168 4.8207 29.0625 6.01953 29.0625H21.9805C23.1828 29.0625 24.1707 28.1203 24.227 26.918L25.0953 8.53125H27.2188C27.3734 8.53125 27.5 8.40469 27.5 8.25V7.125C27.5 6.50273 26.9973 6 26.375 6ZM19.3438 6H8.65625V3.46875H19.3438V6Z"
-        fill="#ff0000"
-        fill-opacity="0.85"
-      />
+      width="24px"
+      height="24px"
+      style={{ backgroundColor: "black" }}
+      viewBox="-2.4 -2.4 28.80 28.80"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="#000"
+      transform="rotate(0)">
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        {" "}
+        <path
+          d="M4 7H20"
+          stroke="#fafafa"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>{" "}
+        <path
+          d="M6 7V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V7"
+          stroke="#fafafa"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>{" "}
+        <path
+          d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
+          stroke="#fafafa"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>{" "}
+      </g>
     </svg>
   );
 };

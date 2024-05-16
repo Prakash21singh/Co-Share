@@ -1,0 +1,91 @@
+.upload_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px 2px rgba(228, 4, 213, 0.083);
+  overflow: auto;
+  position: relative;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .upload_form {
+    width: 70%;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+  }
+  .drag_drop_section {
+    width: 100%;
+    .drag_drop {
+      margin-bottom: 10px;
+      background-color: #131313;
+      border: dashed 1px #851678;
+      min-height: 154px;
+      box-shadow: none;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      .inner_drag_drop {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        p {
+          color: #717070;
+          a {
+            text-decoration: underline;
+            margin-right: 8px;
+            color: #9418a2;
+          }
+        }
+        span {
+          color: rgba(130, 127, 127, 0.6);
+        }
+      }
+    }
+    .selected_file {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: #191818;
+      padding: 10px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      .selected_file_left {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+        .selected_file_left_content {
+          margin-left: 10px;
+        }
+      }
+      .selected_file_right {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        button {
+          margin-right: 10px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .errorMsg {
+    width: 100%;
+    border-left: 2px solid red;
+    background-color: rgba(255, 0, 0, 0.221);
+    margin: 5px 0;
+    padding: 5px;
+  }
+}

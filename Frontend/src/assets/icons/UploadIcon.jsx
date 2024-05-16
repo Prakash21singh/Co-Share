@@ -1,6 +1,6 @@
 import React from "react";
 
-const Upload = () => {
+const UploadIcon = () => {
   return (
     <>
       <svg
@@ -20,4 +20,4 @@ const Upload = () => {
   );
 };
 
-export default Upload;
+export default UploadIcon;

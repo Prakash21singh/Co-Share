@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import "./global.scss";
-import Upload from "./assets/icons/Upload";
+import UploadIcon from "./assets/icons/UploadIcon";
 import Uploads from "./assets/icons/Uploads";
 import Profile from "./assets/icons/Profile";
 import Users from "./assets/icons/Users";
@@ -84,7 +84,7 @@ export default function Root() {
             <NavLink
               to={"/upload"}
               className={({ isActive }) => (isActive ? "link active" : "link")}>
-              <Upload /> &nbsp; Upload File
+              <UploadIcon /> &nbsp; Upload File
             </NavLink>
             <NavLink
               to={"/users"}
@@ -94,7 +94,7 @@ export default function Root() {
             <NavLink
               to={"/my-upload"}
               className={({ isActive }) => (isActive ? "link active" : "link")}>
-              <Upload /> &nbsp; MyUploads
+              <UploadIcon /> &nbsp; MyUploads
             </NavLink>
             <NavLink
               to={"/profile"}

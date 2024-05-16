@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./uploader.scss";
 import { MdCloudUpload } from "react-icons/md";
 import DeleteIcon from "../../assets/icons/DeleteIcon";
-import Upload from "../../assets/icons/Upload";
+import UploadIcon from "../../assets/icons/UploadIcon";
 
 const Uploader = ({ width, height, text, name, onFileSelect }) => {
   const [image, setImage] = useState(null);
@@ -54,7 +54,7 @@ const Uploader = ({ width, height, text, name, onFileSelect }) => {
           </>
         ) : (
           <>
-            <Upload /> &nbsp;&nbsp;
+            <UploadIcon /> &nbsp;&nbsp;
             <p>{text || "Upload"}</p>
           </>
         )}
