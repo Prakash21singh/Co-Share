@@ -11,7 +11,7 @@
     }
     40%,
     100% {
-      background-position: 340px;
+      background-position: 440px;
     }
   }
   @keyframes shine-avatar {
@@ -43,9 +43,9 @@
         margin: 8px;
         background-image: linear-gradient(
           90deg,
-          #ddd 0px,
+          #302e2e 0px,
           #0000003c 40px,
-          #ddd 80px
+          #3d3c3c 80px
         );
         background-size: 600px;
         animation: shine-avatar 1.6s infinite linear;
@@ -68,9 +68,9 @@
         border-radius: 7px;
         background-image: linear-gradient(
           90deg,
-          #ddd 0px,
+          #2f2e2e 0px,
           #00000048 40px,
-          #ddd 80px
+          #393838 80px
         );
         background-size: 600px;
         animation: shine-lines 1.6s infinite linear;
