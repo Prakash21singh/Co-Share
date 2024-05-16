@@ -11,6 +11,10 @@ const uploadSchema = new mongoose.Schema(
     upload: {
       type: String,
     },
+    filename: {
+      type: String,
+      default: "CoShareFile",
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

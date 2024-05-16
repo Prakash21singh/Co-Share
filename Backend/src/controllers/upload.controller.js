@@ -78,7 +78,8 @@ export const createUpload = asyncHandler(async function (req, res) {
     let upload = await Upload.create({
       title,
       description,
-      upload: uploadFile?.url,
+      upload: uploadFile?.secure_url,
+      filename: uploadFile?.original_filename,
       createdBy: req.user._id,
     });
     let user = await User.findById(userId);
