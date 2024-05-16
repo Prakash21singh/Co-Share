@@ -18,7 +18,7 @@ app.use(
     origin: "https://co-share-client.vercel.app",
     // origin: "*",
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    // methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   })
 );
 export { app };
