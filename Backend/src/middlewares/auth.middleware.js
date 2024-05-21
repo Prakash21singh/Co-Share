@@ -11,7 +11,7 @@ export const verifyJwt = async function (req, res, next) {
       res.status(400).json({ message: "Token does not found" });
     }
 
-    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const decodedToken = jwt.verify(token, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
     let user = await User.findById(decodedToken._id).select(
       "-password -refreshToken -avatar -coverImg -followers -following -myUpload"
