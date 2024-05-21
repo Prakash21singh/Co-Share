@@ -12,6 +12,7 @@ import Authenticated from "./components/Autenticated/Authenticated";
 import Index from "./Pages/Index/Index";
 import GlobalUpload from "./Pages/GlobalUpload/GlobalUpload";
 import Upload from "./Pages/Upload/Upload";
+import MyUpload from "./Pages/MyUploads/MyUpload";
 
 //Loading related
 const router = createBrowserRouter([
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: "my-upload",
-        element: <h1>This is my upload section</h1>,
+        element: <MyUpload />,
       },
     ],
   },

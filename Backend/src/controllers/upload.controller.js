@@ -9,6 +9,7 @@ export const getMyUploads = asyncHandler(async function (req, res) {
     //Change this to req.user?._id in deployement state
     let userId = req.user._id;
     let user = await User.findById(userId).populate("myUpload");
+
     if (!user) {
       throw new ApiError(
         401,
