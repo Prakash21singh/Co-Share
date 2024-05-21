@@ -9,7 +9,7 @@ const accessTokenOptions = {
   secure: true,
   sameSite: "none",
   maxAge: 24 * 60 * 60 * 1000, //  1 day
-  // domain: "https://co-share-client.vercel.app",
+  domain: "https://co-share-client.vercel.app",
   path: "/",
 };
 
@@ -18,7 +18,7 @@ const refreshTokenOptions = {
   secure: true,
   sameSite: "none",
   maxAge: 10 * 24 * 60 * 60 * 1000, // 10 days
-  // domain: "https://co-share-client.vercel.app",
+  domain: "https://co-share-client.vercel.app",
   path: "/",
 };
 const generateAccessTokenAndRefreshToken = async function (userId) {
