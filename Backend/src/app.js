@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 //     credentials: true,
 //   })
 // );
+app.use(express.static("./public/temp"));
 app.use(
   cors({
     origin: "https://co-share-client.vercel.app",
