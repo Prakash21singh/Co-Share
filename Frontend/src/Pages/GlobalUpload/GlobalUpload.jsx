@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./style.scss";
 import Loader from "../../components/Loader/Loader";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { NavLink, redirect } from "react-router-dom";
 import SkeletonCard from "../../components/SkeletonCard/SkeletonCard";
 import DownloadIcon from "../../assets/icons/DownloadIcon";
+import { AuthContext } from "../../contexts/authContext";
 const GlobalUpload = () => {
   const [data, setData] = useState([]);
   const [profileClickId, setProfileClickId] = useState(false);
+  let { user } = useContext(AuthContext);
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_BACKEND}/api/v1/user/getAllUploads`, {
@@ -49,6 +51,62 @@ const GlobalUpload = () => {
     }
   }
 
+  function handleFollowUser(id) {
+    axios
+      .post(
+        `${import.meta.env.VITE_BACKEND}/api/v1/user/follow`,
+        { id },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        setData((prevData) =>
+          prevData.map((item) =>
+            item.createdBy._id === id
+              ? {
+                  ...item,
+                  createdBy: {
+                    ...item.createdBy,
+                    followers: [...item.createdBy.followers, user._id],
+                  },
+                }
+              : item
+          )
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function handleUnfollowUser(id) {
+    axios
+      .post(
+        `${import.meta.env.VITE_BACKEND}/api/v1/user/unfollow`,
+        { id },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        setData((prevData) =>
+          prevData.map((item) =>
+            item.createdBy._id === id
+              ? {
+                  ...item,
+                  createdBy: {
+                    ...item.createdBy,
+                    followers: item.createdBy.followers.filter(
+                      (followerId) => followerId !== user._id
+                    ),
+                  },
+                }
+              : item
+          )
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   function handleProfileClick(id) {
     setProfileClickId(id);
   }
@@ -72,7 +130,28 @@ const GlobalUpload = () => {
                         ? "profileCard hoverCard"
                         : "profileCard"
                     }>
-                    <NavLink to={`/profile/${data._id}`}>Go to Profile</NavLink>
+                    {data.createdBy._id !== user._id ? (
+                      <>
+                        <NavLink to={`/profile/${data._id}`}>Profile</NavLink>
+                        {data.createdBy.followers.includes(user._id) ? (
+                          <button
+                            onClick={() => {
+                              handleUnfollowUser(data.createdBy._id);
+                            }}>
+                            Unfollow
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => {
+                              handleFollowUser(data.createdBy._id);
+                            }}>
+                            Follow
+                          </button>
+                        )}
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <img
                     src={data.createdBy?.avatar}

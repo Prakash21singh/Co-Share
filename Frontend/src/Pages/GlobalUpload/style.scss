@@ -37,6 +37,7 @@
       position: relative;
       transition: 0.3s all;
       img {
+        cursor: pointer;
         width: 60px;
         height: 60px;
         border-radius: 50%;
@@ -55,21 +56,34 @@
       .hoverCard {
         scale: 1;
         width: 150px;
-        height: 50px;
+        // height: 150px;
         position: absolute;
-        background-color: #1a1a1a;
+        background-color: #c5c3c3;
         top: 70%;
         left: 100%;
-        padding: 10px;
+        // padding: 10px;
         z-index: 10;
-        border-radius: 5px;
+        border-radius: 2px;
         display: flex;
         align-items: center;
-        justify-content: center;
-        box-shadow: 0 0 6px rgba(255, 254, 254, 0.176);
-        a {
+        justify-content: start;
+        flex-direction: column;
+        box-shadow: 0 0 6px rgba(204, 11, 198, 0.176);
+        a,
+        button {
+          border: none;
           text-decoration: none;
-          color: white;
+          color: #f2f2f2;
+          width: 100%;
+          text-align: left;
+          font-size: 20px;
+          padding: 10px;
+          color: black;
+          transition: 0.3s all;
+          &:hover {
+            color: white;
+            background-color: #1a1919;
+          }
         }
       }
     }
