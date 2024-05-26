@@ -8,8 +8,8 @@ dotenv.config({
   path: "./.env",
 });
 User(app);
-userUpload(app);
 followRoute(app);
+userUpload(app);
 connectDb()
   .then(() => {
     app.listen(process.env.PORT || 8000, () => {
