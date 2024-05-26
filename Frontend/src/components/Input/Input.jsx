@@ -11,12 +11,14 @@ const InputField = ({
   backGroundColor = "",
   textColor = "",
   borderColor = "",
+  value = "",
 }) => {
   return (
     <>
       <input
         onChange={handleChange}
         className="inputField"
+        value={value}
         type={type}
         id={id}
         placeholder={placeholder}

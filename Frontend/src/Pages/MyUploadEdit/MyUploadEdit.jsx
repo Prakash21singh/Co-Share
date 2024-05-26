@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import InputField from "../../components/Input/Input";
 import { FileUploader } from "react-drag-drop-files";
 import "./style.scss";
@@ -8,53 +8,61 @@ import TickIcon from "../../assets/icons/TickIcon";
 import DeleteIcon from "../../assets/icons/DeleteIcon";
 import Button from "../../components/Button/Button";
 import Loader from "../../components/Loader/Loader";
-import { LoaderContext } from "../../contexts/loaderContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const fileTypes = ["DOCX", "DOC", "PDF", "PNG", "JPEG", "JPG"];
-const Upload = () => {
+const MyUploadEdit = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
+  const [uploadedFile, setUploadedFile] = useState({});
   let [error, setError] = useState("");
   let [isLoading, setIsLoading] = useState(false);
+  let { uploadId } = useParams();
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND}/api/v1/user/upload/${uploadId}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        let { data } = res.data;
+        setTitle(data.title);
+        setDescription(data.description);
+        setUploadedFile({
+          filename: data.filename,
+          url: data.upload,
+        });
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   function handleFileSelect(e) {
     console.log(e);
     setFile(e);
   }
   function handleUploadFile() {
-    setError("");
-    if (!title) {
-      setError("");
-      setError("Title is required");
-      return;
-    }
-    if (!description) {
-      setError("");
-      setError("Description is required");
-      return;
-    }
-    if (!file) {
-      setError("");
-      setError("File is Required");
-      return;
-    }
     let formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("Upload", file);
+    formData.append("NewUpload", file || "");
     setIsLoading(true);
+    console.log(file);
     axios
-      .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/upload`, formData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .patch(
+        `${import.meta.env.VITE_BACKEND}/api/v1/user/upload/${uploadId}`,
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
-        navigate("/uploads");
+        navigate(`/my-upload`);
       })
       .catch((error) => {
         console.log(error);
@@ -82,7 +90,7 @@ const Upload = () => {
               padding="15px"
               textColor="#f2f2f2"
               margin="10px 0px"
-              value={title}
+              value={title && title}
             />
             <InputField
               handleChange={(e) => {
@@ -119,7 +127,7 @@ const Upload = () => {
                   }
                 />
               </div>
-              {file && (
+              {(file && (
                 <div className="selected_file">
                   <div className="selected_file_left">
                     <UploadFileIcon />
@@ -137,13 +145,29 @@ const Upload = () => {
                     <TickIcon />
                   </div>
                 </div>
+              )) || (
+                <div className="selected_file">
+                  <div className="selected_file_left">
+                    <UploadFileIcon />
+                    <div className="selected_file_left_content">
+                      <p style={{ marginRight: 3 }}>{uploadedFile.filename}</p>
+                      <span></span>
+                    </div>
+                  </div>
+                  <div className="selected_file_right">
+                    <button onClick={() => setFile(null)}>
+                      <DeleteIcon />
+                    </button>
+                    <TickIcon />
+                  </div>
+                </div>
               )}
             </div>
             {error ? <div className="errorMsg">Error:{error}</div> : ""}
 
             <Button
               width={"100%"}
-              text={"Upload Now"}
+              text={"Edit Now"}
               handleClick={handleUploadFile}
             />
           </div>
@@ -153,4 +177,4 @@ const Upload = () => {
   );
 };
 
-export default Upload;
+export default MyUploadEdit;

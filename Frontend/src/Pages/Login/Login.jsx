@@ -81,6 +81,7 @@ const Login = () => {
                 handleChange={(e) => {
                   setIdentity(e.target.value);
                 }}
+                value={identity}
                 width={"100%"}
                 id={"email"}
                 placeholder={"Email or username"}
@@ -89,6 +90,7 @@ const Login = () => {
                 margin="10px"
               />
               <InputField
+                value={password}
                 handleChange={(e) => {
                   setPassword(e.target.value);
                 }}

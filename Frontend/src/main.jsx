@@ -13,6 +13,8 @@ import Index from "./Pages/Index/Index";
 import GlobalUpload from "./Pages/GlobalUpload/GlobalUpload";
 import Upload from "./Pages/Upload/Upload";
 import MyUpload from "./Pages/MyUploads/MyUpload";
+import MyUploadEdit from "./Pages/MyUploadEdit/MyUploadEdit";
+import DeleteConfirmation from "./Pages/DeleteConfirmation/DeleteConfirmation";
 
 //Loading related
 const router = createBrowserRouter([
@@ -38,10 +40,26 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <h1>This is my profile</h1>,
+        children: [
+          {
+            path: "one",
+            element: <h1>This is one</h1>,
+          },
+        ],
       },
       {
         path: "my-upload",
-        element: <MyUpload />,
+        children: [
+          { index: true, element: <MyUpload /> },
+          {
+            path: "edit/:uploadId",
+            element: <MyUploadEdit />,
+          },
+          {
+            path: "delete/confirmation",
+            element: <DeleteConfirmation />,
+          },
+        ],
       },
     ],
   },

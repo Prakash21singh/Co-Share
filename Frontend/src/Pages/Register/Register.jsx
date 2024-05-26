@@ -121,6 +121,7 @@ const Register = () => {
           <div className="inner_content">
             <div className="input_Fields">
               <InputField
+                value={fullname}
                 width={"100%"}
                 id={"fullname"}
                 placeholder={"Fullname"}
@@ -129,6 +130,7 @@ const Register = () => {
                 handleChange={handleFullname}
               />
               <InputField
+                value={username}
                 width={"100%"}
                 id={"username"}
                 placeholder={"Username"}
@@ -138,6 +140,7 @@ const Register = () => {
                 handleChange={handleUsername}
               />
               <InputField
+                value={email}
                 width={"100%"}
                 id={"Email"}
                 placeholder={"Email"}
@@ -147,6 +150,7 @@ const Register = () => {
                 handleChange={handleEmail}
               />
               <InputField
+                value={password}
                 width={"100%"}
                 id={"password"}
                 placeholder={"Password"}
