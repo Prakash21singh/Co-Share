@@ -35,7 +35,7 @@ const routeConfig = function (app) {
     updateUpload
   );
 
-  app.delete("/api/v1/user/upload/:id/:uploadId", deleteUpload);
+  app.delete("/api/v1/user/upload/:uploadId", verifyJwt, deleteUpload);
 };
 
 export { routeConfig as userUpload };

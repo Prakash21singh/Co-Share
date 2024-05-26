@@ -121,6 +121,7 @@ export const updateUpload = asyncHandler(async (req, res) => {
       .status(200)
       .send(new ApiResponse(200, upload, "Your file is Updated successfully"));
   } catch (error) {
+    console.log(error);
     res.status(400).send(new ApiError(400, error.message, error));
   }
 });
@@ -128,7 +129,9 @@ export const updateUpload = asyncHandler(async (req, res) => {
 export const deleteUpload = asyncHandler(async (req, res) => {
   try {
     //get id from the req.user
-    let { id, uploadId } = req.params;
+    let id = req.user._id;
+    console.log(req.user);
+    let { uploadId } = req.params;
     if (!id) {
       throw new ApiError(
         404,
@@ -136,15 +139,16 @@ export const deleteUpload = asyncHandler(async (req, res) => {
       );
     }
     await User.findByIdAndUpdate(id, { $pull: { myUpload: uploadId } });
-    let deletedUpload = await Upload.findByIdAndDelete(uploadId);
+    let deletedUpload = await Upload.findByIdAndDelete(uploadId, { new: true });
     res.send(
       new ApiResponse(
         200,
-        deleteUpload,
+        deletedUpload,
         "Your upload has been deleted succesfully"
       )
     );
   } catch (error) {
+    console.log(error);
     res.status(400).send(new ApiError(400, error.message, error));
   }
 });
