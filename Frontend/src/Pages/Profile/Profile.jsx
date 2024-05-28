@@ -51,7 +51,6 @@ const Profile = () => {
         }
       )
       .then((res) => {
-        console.log(res.data);
         clearAllCookies();
         localStorage.clear();
       })
