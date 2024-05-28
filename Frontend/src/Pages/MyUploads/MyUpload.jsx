@@ -1,13 +1,14 @@
 import React, { memo, useEffect, useState } from "react";
 import "./style.scss";
-import Loader from "../../components/Loader/Loader";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import LoaderTwo from "../../components/LoaderTwo/LoaderTwo";
 const MyUpload = memo(() => {
   const [uploads, setUploads] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   let navigate = useNavigate();
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get(`${import.meta.env.VITE_BACKEND}/api/v1/user/my-uploads`, {
         withCredentials: true,
@@ -18,6 +19,9 @@ const MyUpload = memo(() => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
 
@@ -72,7 +76,7 @@ const MyUpload = memo(() => {
     <>
       <div className="myUploadContainer">
         {isLoading ? (
-          <Loader />
+          <LoaderTwo />
         ) : (
           <div className="uploadContainerScroll">
             {uploads && uploads.length > 0 ? (

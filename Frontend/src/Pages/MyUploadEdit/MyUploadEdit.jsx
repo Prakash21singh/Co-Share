@@ -7,9 +7,9 @@ import UploadIcon from "../../assets/icons/UploadIcon";
 import TickIcon from "../../assets/icons/TickIcon";
 import DeleteIcon from "../../assets/icons/DeleteIcon";
 import Button from "../../components/Button/Button";
-import Loader from "../../components/Loader/Loader";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import LoaderTwo from "../../components/LoaderTwo/LoaderTwo";
 const fileTypes = ["DOCX", "DOC", "PDF", "PNG", "JPEG", "JPG"];
 const MyUploadEdit = () => {
   const navigate = useNavigate();
@@ -77,7 +77,7 @@ const MyUploadEdit = () => {
     <>
       <div className="upload_container">
         {isLoading ? (
-          <Loader />
+          <LoaderTwo />
         ) : (
           <div className="upload_form">
             <InputField

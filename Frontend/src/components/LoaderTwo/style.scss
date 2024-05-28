@@ -1,0 +1,39 @@
+.loaderComponentTwo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0c0c0c;
+  position: absolute;
+  z-index: 100;
+  .loading svg polyline {
+    fill: none;
+    strokewidth: 3;
+    strokelinecap: round;
+    strokelinejoin: round;
+  }
+
+  .loading svg polyline#back {
+    fill: none;
+    stroke: #ff4d5033;
+  }
+
+  .loading svg polyline#front {
+    fill: none;
+    stroke: #ff4d4f;
+    stroke-dasharray: 48, 144;
+    stroke-dashoffset: 192;
+    animation: dash_682 1.4s linear infinite;
+  }
+
+  @keyframes dash_682 {
+    72.5% {
+      opacity: 0;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}

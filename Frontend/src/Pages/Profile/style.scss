@@ -1,0 +1,122 @@
+.profileContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  // justify-content: center;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px 2px rgba(228, 4, 213, 0.083);
+  background-color: #0c0c0caf;
+  overflow: auto;
+  position: relative;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .profileContent {
+    width: 100%;
+    height: 100%;
+
+    .row {
+      width: 100%;
+      height: 240px;
+
+      position: relative;
+      .coverImage {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          border-radius: 4px;
+          box-shadow: 0 0 10px rgba(208, 104, 246, 0.543);
+        }
+      }
+      .avatar {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 150px;
+        height: 150px;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+    }
+    .row2 {
+      width: 90%;
+      flex: 1;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgb(93, 87, 87);
+      text-shadow: 0 0 1px rgb(56, 53, 53);
+      margin-top: 10px;
+      font-size: 0.9rem;
+      b {
+        font-size: 1.1rem;
+        color: rgb(189, 184, 184);
+        margin-right: 5px;
+      }
+      .name {
+        display: flex;
+        justify-content: start;
+        justify-content: space-between;
+        padding: 5px;
+        width: 90%;
+      }
+      .email {
+        width: 90%;
+        padding: 5px;
+      }
+      .followers {
+        display: flex;
+        width: 90%;
+        padding: 5px;
+        justify-content: space-between;
+        align-items: center;
+        h3 {
+          display: flex;
+          align-items: center;
+        }
+      }
+      .uploads {
+        width: 90%;
+        padding: 5px;
+      }
+      a {
+        width: 90%;
+        padding: 5px;
+        background: rgb(37, 35, 35);
+        border-radius: 5px;
+        margin-top: 10px;
+        padding: 15px;
+        text-decoration: none;
+        color: white;
+        transition: 0.3s all;
+        position: absolute;
+        bottom: 1rem;
+        &:hover {
+          background: black;
+          color: red;
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.151);
+        }
+        .logout {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

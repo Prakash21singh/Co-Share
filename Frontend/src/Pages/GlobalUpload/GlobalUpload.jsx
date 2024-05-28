@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./style.scss";
-import Loader from "../../components/Loader/Loader";
 import axios from "axios";
 import { NavLink, redirect } from "react-router-dom";
-import SkeletonCard from "../../components/SkeletonCard/SkeletonCard";
 import DownloadIcon from "../../assets/icons/DownloadIcon";
 import { AuthContext } from "../../contexts/authContext";
+import LoaderTwo from "../../components/LoaderTwo/LoaderTwo";
 const GlobalUpload = () => {
   const [data, setData] = useState([]);
   const [profileClickId, setProfileClickId] = useState(false);
@@ -61,12 +60,12 @@ const GlobalUpload = () => {
       .then((res) => {
         setData((prevData) =>
           prevData.map((item) =>
-            item.createdBy._id === id
+            item.createdBy?._id === id
               ? {
                   ...item,
                   createdBy: {
                     ...item.createdBy,
-                    followers: [...item.createdBy.followers, user._id],
+                    followers: [...item.createdBy.followers, user?._id],
                   },
                 }
               : item
@@ -88,13 +87,13 @@ const GlobalUpload = () => {
       .then((res) => {
         setData((prevData) =>
           prevData.map((item) =>
-            item.createdBy._id === id
+            item.createdBy?._id === id
               ? {
                   ...item,
                   createdBy: {
                     ...item.createdBy,
                     followers: item.createdBy.followers.filter(
-                      (followerId) => followerId !== user._id
+                      (followerId) => followerId !== user?._id
                     ),
                   },
                 }
@@ -130,20 +129,20 @@ const GlobalUpload = () => {
                         ? "profileCard hoverCard"
                         : "profileCard"
                     }>
-                    {data.createdBy._id !== user._id ? (
+                    {data.createdBy?._id !== user?._id ? (
                       <>
                         <NavLink to={`/profile/${data._id}`}>Profile</NavLink>
-                        {data.createdBy.followers.includes(user._id) ? (
+                        {data.createdBy?.followers.includes(user?._id) ? (
                           <button
                             onClick={() => {
-                              handleUnfollowUser(data.createdBy._id);
+                              handleUnfollowUser(data.createdBy?._id);
                             }}>
                             Unfollow
                           </button>
                         ) : (
                           <button
                             onClick={() => {
-                              handleFollowUser(data.createdBy._id);
+                              handleFollowUser(data.createdBy?._id);
                             }}>
                             Follow
                           </button>
@@ -157,7 +156,7 @@ const GlobalUpload = () => {
                     src={data.createdBy?.avatar}
                     alt=""
                     onClick={(e) => {
-                      handleProfileClick(data._id);
+                      handleProfileClick(data?._id);
                     }}
                   />
                 </div>
@@ -188,7 +187,7 @@ const GlobalUpload = () => {
         </div>
       ) : (
         <div className="globalUpload">
-          <SkeletonCard />
+          <LoaderTwo />
         </div>
       )}
     </>
