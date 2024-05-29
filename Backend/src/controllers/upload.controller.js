@@ -65,7 +65,7 @@ export const createUpload = asyncHandler(async function (req, res) {
       throw new ApiError(401, "Title and description are required");
     }
 
-    let uploadLocalPath = req.files?.Upload[0]?.path;
+    let uploadLocalPath = req.files?.Upload[0]?.buffer;
 
     if (!uploadLocalPath) {
       throw new ApiError(400, "Upload file is required");
@@ -111,7 +111,7 @@ export const updateUpload = asyncHandler(async (req, res) => {
     );
 
     if (req.files && req.files.NewUpload) {
-      let uploadFilePath = req.files.NewUpload[0]?.path;
+      let uploadFilePath = req.files.NewUpload[0]?.buffer;
       let UploadedFile = await uploadOnCloudinary(uploadFilePath);
       upload.upload = UploadedFile.url;
     }
