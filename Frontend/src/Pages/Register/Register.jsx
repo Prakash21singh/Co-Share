@@ -63,17 +63,6 @@ const Register = () => {
       .catch((err) => {
         console.log(err);
         setError(err.response?.data?.message);
-        if (err.message == "Network Error") {
-          setError(
-            "Sorry!! for the inconvenience use this credentials to explore website \n Email:demo@coshare.club \n Password:12341234"
-          );
-          return;
-        }
-        if (err.name === "AxiosError") {
-          setError(
-            "Sorry!! for the inconvenience use this credentials to explore website \n Email:demo@coshare.club \n Password:12341234"
-          );
-        }
       })
       .finally(() => {
         stopLoading();
