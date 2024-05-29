@@ -110,7 +110,7 @@ const MyUpload = memo(() => {
                 </div>
               ))
             ) : (
-              <div>You dont have any uploads yet</div>
+              <div className="noUploads">You dont have any uploads yet</div>
             )}
           </div>
         )}

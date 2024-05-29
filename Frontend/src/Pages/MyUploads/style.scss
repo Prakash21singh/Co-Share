@@ -65,8 +65,13 @@
           }
         }
         .description {
+          margin: 10px 0px;
+          border-top: 1px dashed #fff;
+          border-bottom: 1px dashed #fff;
           width: 80%;
           text-align: justify;
+          line-height: 1.8;
+          font-size: 15px;
         }
         .fileName {
         }
@@ -111,5 +116,11 @@
         }
       }
     }
+  }
+  .noUploads {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
