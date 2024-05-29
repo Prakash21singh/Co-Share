@@ -50,6 +50,7 @@ const registerUser = asyncHandler(async function (req, res) {
         .send({ message: "User already registered with this email/username" });
     }
     let avatarLocalPath = req.files?.avatar[0]?.path;
+    console.log(avatarLocalPath, "One time");
 
     let coverImageLocalPath;
     if (
@@ -89,12 +90,12 @@ const registerUser = asyncHandler(async function (req, res) {
         .status(400)
         .send({ message: "Something went wrong while registering user" });
     }
-    res
+    return res
       .status(201)
       .send(new ApiResponse(200, createdUser, "Signed Up successfully"));
   } catch (error) {
     console.log(error);
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 });
 
