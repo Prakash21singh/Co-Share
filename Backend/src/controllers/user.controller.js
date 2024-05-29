@@ -1,7 +1,7 @@
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { uploadOnCloudinay } from "../utils/cloudinary.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 const accessTokenOptions = {
@@ -49,8 +49,7 @@ const registerUser = asyncHandler(async function (req, res) {
         .status(401)
         .send({ message: "User already registered with this email/username" });
     }
-    let avatarLocalPath = req.files?.avatar[0]?.path;
-    console.log(avatarLocalPath, "One time");
+    let avatarLocalPath = req.files?.avatar[0]?.buffer;
 
     let coverImageLocalPath;
     if (
@@ -58,15 +57,18 @@ const registerUser = asyncHandler(async function (req, res) {
       Array.isArray(req.files.coverImg) &&
       req.files.coverImg.length > 0
     ) {
-      coverImageLocalPath = req.files.coverImg[0].path;
+      coverImageLocalPath = req.files.coverImg[0].buffer;
     }
 
     if (!avatarLocalPath) {
       return res.status(400).send({ message: "Avatar is required" });
     }
 
-    let avatar = await uploadOnCloudinay(avatarLocalPath);
-    let coverImg = await uploadOnCloudinay(coverImageLocalPath);
+    let avatar = await uploadOnCloudinary(avatarLocalPath);
+    // console.log(avatar, "DSFFFFFFFFFFFF");
+    let coverImg = coverImageLocalPath
+      ? await uploadOnCloudinary(coverImageLocalPath)
+      : null;
 
     if (!avatar) {
       return res.status(501).send({ message: "Failed to upload Avatar!!" });

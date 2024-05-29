@@ -3,7 +3,7 @@ import { Upload } from "../models/upload.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { uploadOnCloudinay } from "../utils/cloudinary.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 export const getMyUploads = asyncHandler(async function (req, res) {
   try {
     //Change this to req.user?._id in deployement state
@@ -71,7 +71,7 @@ export const createUpload = asyncHandler(async function (req, res) {
       throw new ApiError(400, "Upload file is required");
     }
 
-    let uploadFile = await uploadOnCloudinay(uploadLocalPath);
+    let uploadFile = await uploadOnCloudinary(uploadLocalPath);
     if (!uploadFile) {
       throw new ApiError(500, "Something went wrong while uploading data");
     }
@@ -112,7 +112,7 @@ export const updateUpload = asyncHandler(async (req, res) => {
 
     if (req.files && req.files.NewUpload) {
       let uploadFilePath = req.files.NewUpload[0]?.path;
-      let UploadedFile = await uploadOnCloudinay(uploadFilePath);
+      let UploadedFile = await uploadOnCloudinary(uploadFilePath);
       upload.upload = UploadedFile.url;
     }
     await upload.save();
