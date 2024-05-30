@@ -16,6 +16,7 @@ import MyUpload from "./Pages/MyUploads/MyUpload";
 import MyUploadEdit from "./Pages/MyUploadEdit/MyUploadEdit";
 import DeleteConfirmation from "./Pages/DeleteConfirmation/DeleteConfirmation";
 import Profile from "./Pages/Profile/Profile";
+import AllUser from "./Pages/AllUsers/AllUser";
 
 //Loading related
 const router = createBrowserRouter([
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "users",
-        element: <h1>This is All Users</h1>,
+        element: <AllUser />,
       },
       {
         path: "profile",
