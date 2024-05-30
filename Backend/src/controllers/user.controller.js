@@ -206,10 +206,22 @@ function getUsersData(req, res) {
     });
 }
 
+function getAllUsers(req, res) {
+  User.find()
+    .then((users) => {
+      return res.status(200).json(users);
+    })
+    .catch((error) => {
+      console.log(error);
+      return res.status(400).json({ message: error.message });
+    });
+}
+
 export {
   refreshAccessToken,
   logoutUser,
   loginUser,
   registerUser,
   getUsersData,
+  getAllUsers,
 };
