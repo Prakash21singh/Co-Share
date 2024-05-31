@@ -77,11 +77,18 @@
       .input_Fields {
         flex: 1;
         width: 100%;
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        position: relative;
+        form {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+        }
         .errorMsg {
           color: red;
           margin: 10px 0px;

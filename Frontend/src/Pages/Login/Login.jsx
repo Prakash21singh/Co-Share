@@ -14,17 +14,19 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   async function handleLogin() {
-    startLoading();
-    if (!email) {
-      alert("Email is required");
+    if (identity === "") {
+      setError("Email or username is required");
+      return;
     }
-    if (!password) {
-      alert("Password is required");
+    if (password === "") {
+      setError("Password is required");
+      return;
     }
     let formData = new FormData();
     formData.append("identification", identity);
     formData.append("password", password);
-
+    console.log("hey there");
+    startLoading();
     axios
       .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/login`, formData, {
         headers: {
@@ -75,41 +77,44 @@ const Login = () => {
         <div className="right_content">
           <div className="inner_content">
             <div className="input_Fields">
-              <InputField
-                handleChange={(e) => {
-                  setIdentity(e.target.value);
-                }}
-                value={identity}
-                width={"100%"}
-                id={"email"}
-                placeholder={"Email or username"}
-                type={"text"}
-                key={"email"}
-                margin="10px"
-              />
-              <InputField
-                value={password}
-                handleChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-                width={"100%"}
-                id={"password"}
-                placeholder={"Password"}
-                type={"password"}
-                key={"password"}
-                margin="0px 0px 10px 0px"
-              />
-              {error ? (
-                <div className="errorMsg">{error ? `Error:${error}` : ""}</div>
-              ) : (
-                ""
-              )}
-              <Button
-                text={"Log In"}
-                width={"100%"}
-                key={"Login"}
-                handleClick={handleLogin}
-              />
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleLogin();
+                }}>
+                <InputField
+                  handleChange={(e) => {
+                    setIdentity(e.target.value);
+                  }}
+                  value={identity}
+                  width={"100%"}
+                  id={"email"}
+                  placeholder={"Email or username"}
+                  type={"text"}
+                  key={"email"}
+                  margin="10px"
+                />
+                <InputField
+                  value={password}
+                  handleChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  width={"100%"}
+                  id={"password"}
+                  placeholder={"Password"}
+                  type={"password"}
+                  key={"password"}
+                  margin="0px 0px 10px 0px"
+                />
+                {error ? (
+                  <div className="errorMsg">
+                    {error ? `Error:${error}` : ""}
+                  </div>
+                ) : (
+                  ""
+                )}
+                <Button text={"Log In"} width={"100%"} key={"Login"} />
+              </form>
               <br />
               <div className="login_message">
                 <p>
