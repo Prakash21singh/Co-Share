@@ -57,8 +57,6 @@ const Login = () => {
       <div className="login_Container">
         <div className="left_content">
           <div className="inner_content">
-            <div className="back_button"></div>
-            <br />
             <div className="content">
               <h2>Co-Share Login</h2>
               <p>Welcome to Co-share</p>

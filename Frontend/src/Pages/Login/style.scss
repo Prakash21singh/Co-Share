@@ -143,6 +143,7 @@
     .right_content {
       width: 95%;
       flex: 0;
+      margin: 0;
     }
     .left_content {
       width: 100%;
@@ -151,6 +152,7 @@
         padding: 5px;
         width: 100%;
         margin: 0;
+        position: absolute;
         .content {
           h2 {
             font-size: 1.5rem;
@@ -165,5 +167,11 @@
   .login_Container {
     flex-direction: column;
     justify-content: center;
+    // align-items: start;
+    position: relative;
+    .left_content {
+      position: absolute;
+      top: 25%;
+    }
   }
 }
