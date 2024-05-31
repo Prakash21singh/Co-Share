@@ -7,18 +7,18 @@ import User from "../models/user.model.js";
 const accessTokenOptions = {
   httpOnly: true,
   secure: true,
-  sameSite: "Strict",
+  sameSite: "none",
   maxAge: 24 * 60 * 60 * 1000, //  1 day
-  domain: "https://co-share-client.vercel.app",
+  // domain: "https://co-share-client.vercel.app",
   path: "/",
 };
 
 const refreshTokenOptions = {
   httpOnly: true,
   secure: true,
-  sameSite: "Strict",
+  sameSite: "none",
   maxAge: 10 * 24 * 60 * 60 * 1000, // 10 days
-  domain: "https://co-share-client.vercel.app",
+  // domain: "https://co-share-client.vercel.app",
   path: "/",
 };
 const generateAccessTokenAndRefreshToken = async function (userId) {
