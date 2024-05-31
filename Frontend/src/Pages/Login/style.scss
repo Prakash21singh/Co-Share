@@ -19,6 +19,7 @@
     left: 0;
     top: 85%;
   }
+
   .left_content {
     width: 60%;
     height: inherit;
@@ -116,5 +117,53 @@
         }
       }
     }
+  }
+  @media (max-width: 848px) {
+    flex-direction: column;
+    .left_content {
+      padding: none;
+      height: 100px;
+      width: 100%;
+      .inner_content {
+        margin: 0;
+        .content {
+          p {
+            display: none;
+          }
+        }
+      }
+    }
+    .right_content {
+      width: 60%;
+      height: max-content;
+      margin: 0;
+    }
+  }
+  @media (max-width: 640px) {
+    .right_content {
+      width: 95%;
+      flex: 0;
+    }
+    .left_content {
+      width: 100%;
+      padding: 5px;
+      .inner_content {
+        padding: 5px;
+        width: 100%;
+        margin: 0;
+        .content {
+          h2 {
+            font-size: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .login_Container {
+    flex-direction: column;
+    justify-content: center;
   }
 }
