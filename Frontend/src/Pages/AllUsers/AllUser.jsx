@@ -20,24 +20,25 @@ const AllUser = () => {
 
   return (
     <div className="allUserContainer">
-      {users.map((user) => (
-        <div className="user" key={user._id}>
-          <div className="upper">
-            <img src={user.avatar} alt="img" />
-          </div>
-          <div className="middle">
-            <h4>{user.username}</h4>
-          </div>
-          <div className="bottom">
-            <div className="btm">
-              <p>Followers:{user.followers?.length}</p>
+      {users &&
+        users.map((user, index) => (
+          <div className="user" key={index}>
+            <div className="upper">
+              <img src={user.avatar} alt="img" />
             </div>
-            <div className="btm">
-              <p>Following:{user.following?.length}</p>
+            <div className="middle">
+              <h4>{user.username}</h4>
+            </div>
+            <div className="bottom">
+              <div className="btm">
+                <p>Followers:{user.followers?.length}</p>
+              </div>
+              <div className="btm">
+                <p>Following:{user.following?.length}</p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

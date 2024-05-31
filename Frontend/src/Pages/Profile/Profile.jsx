@@ -21,14 +21,13 @@ const Profile = () => {
         name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
     }
   }
-  console.log(user);
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_BACKEND}/api/v1/user/data`, {
         withCredentials: true,
       })
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setUser(res.data);
       })
       .catch((error) => {
