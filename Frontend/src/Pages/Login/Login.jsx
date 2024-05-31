@@ -25,7 +25,6 @@ const Login = () => {
     let formData = new FormData();
     formData.append("identification", identity);
     formData.append("password", password);
-    console.log("hey there");
     startLoading();
     axios
       .post(`${import.meta.env.VITE_BACKEND}/api/v1/user/login`, formData, {
