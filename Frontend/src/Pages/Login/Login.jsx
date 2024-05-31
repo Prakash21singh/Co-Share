@@ -8,9 +8,7 @@ import Loader from "../../components/Loader/Loader";
 import { LoaderContext } from "../../contexts/loaderContext";
 import useAuth from "../../contexts/authContext";
 const Login = () => {
-  let { authenticateUser } = useAuth();
   const { isLoading, startLoading, stopLoading } = useContext(LoaderContext);
-  // const [isLoading, setIsLoading] = useState(false);
   const [identity, setIdentity] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
