@@ -6,8 +6,8 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 const accessTokenOptions = {
   httpOnly: true,
-  secure: false,
-  sameSite: "none",
+  secure: true,
+  sameSite: "Strict",
   maxAge: 24 * 60 * 60 * 1000, //  1 day
   // domain: "https://co-share-client.vercel.app",
   path: "/",
@@ -15,8 +15,8 @@ const accessTokenOptions = {
 
 const refreshTokenOptions = {
   httpOnly: true,
-  secure: false,
-  sameSite: "none",
+  secure: true,
+  sameSite: "Strict",
   maxAge: 10 * 24 * 60 * 60 * 1000, // 10 days
   // domain: "https://co-share-client.vercel.app",
   path: "/",
