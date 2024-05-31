@@ -5,8 +5,8 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 const accessTokenOptions = {
-  httpOnly: false,
-  secure: true,
+  httpOnly: true,
+  secure: false,
   sameSite: "none",
   maxAge: 24 * 60 * 60 * 1000, //  1 day
   // domain: "https://co-share-client.vercel.app",
@@ -14,8 +14,8 @@ const accessTokenOptions = {
 };
 
 const refreshTokenOptions = {
-  httpOnly: false,
-  secure: true,
+  httpOnly: true,
+  secure: false,
   sameSite: "none",
   maxAge: 10 * 24 * 60 * 60 * 1000, // 10 days
   // domain: "https://co-share-client.vercel.app",
