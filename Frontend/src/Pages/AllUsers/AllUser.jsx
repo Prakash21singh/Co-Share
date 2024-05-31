@@ -27,7 +27,6 @@ const AllUser = () => {
           </div>
           <div className="middle">
             <h4>{user.username}</h4>
-            <h5>{user.email}</h5>
           </div>
           <div className="bottom">
             <div className="btm">

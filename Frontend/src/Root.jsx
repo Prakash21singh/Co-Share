@@ -6,7 +6,6 @@ import Profile from "./assets/icons/Profile";
 import Users from "./assets/icons/Users";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import Logout from "./assets/icons/Logout";
 import { LoaderContext } from "./contexts/loaderContext";
 import Loader from "./components/Loader/Loader";
 import LoaderTwo from "./components/LoaderTwo/LoaderTwo";
