@@ -20,6 +20,10 @@ const Upload = () => {
   let [isLoading, setIsLoading] = useState(false);
   function handleFileSelect(e) {
     console.log(e);
+    if (e.size > 3145728) {
+      setError("File is too big!!");
+      return;
+    }
     setFile(e);
   }
   function handleUploadFile() {
