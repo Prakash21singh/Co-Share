@@ -6,7 +6,7 @@ const ProtectedRoute = ({ element: Element, ...rest }) => {
   const location = useLocation();
   let accessToken = localStorage.getItem("accessToken");
   let accessTokenFromCookie = document.cookie.split(";")[0].split("=")[1];
-  console.log("nothing cookeis");
+
   return accessToken || accessTokenFromCookie ? (
     <Element {...rest} />
   ) : (
