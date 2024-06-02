@@ -66,7 +66,6 @@ export const createUpload = asyncHandler(async function (req, res) {
     }
 
     let uploadLocalPath = req.files?.Upload[0]?.buffer;
-
     if (!uploadLocalPath) {
       throw new ApiError(400, "Upload file is required");
     }
@@ -79,7 +78,7 @@ export const createUpload = asyncHandler(async function (req, res) {
     let upload = await Upload.create({
       title,
       description,
-      upload: uploadFile?.secure_url,
+      upload: uploadFile?.url,
       filename: uploadFile?.original_filename,
       createdBy: req.user._id,
     });
