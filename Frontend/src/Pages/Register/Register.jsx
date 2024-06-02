@@ -27,23 +27,28 @@ const Register = () => {
 
   async function handleRegister() {
     if (!fullname) {
-      alert("Fullname cannnot be empty");
+      setError("Fullname cannot be empty");
+      return;
     }
 
     if (!username) {
-      alert("Username cannot be empty");
+      setError("Username cannot be empty");
+      return;
     }
 
     if (!email) {
-      alert("Email cannot be empty");
+      setError("Email cannot be empty");
+      return;
     }
 
     if (!password) {
-      alert("Password cannot be empty");
+      setError("Password cannot be empty");
+      return;
     }
 
     if (!avatar) {
-      alert("Avatar cannot be empty");
+      setError("Avatar cannot be empty ");
+      return;
     }
     let formData = new FormData();
     formData.append("fullname", fullname);
@@ -167,7 +172,6 @@ const Register = () => {
               ) : (
                 ""
               )}
-              <br />
               <Button
                 text={"Sign Up"}
                 width={"100%"}
