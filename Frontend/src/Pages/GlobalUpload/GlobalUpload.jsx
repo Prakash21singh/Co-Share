@@ -24,7 +24,6 @@ const GlobalUpload = () => {
   }, []);
 
   async function handleFileDownload(upload, filename) {
-    console.log(upload);
     let uploadType = upload.split(".").at(-1);
     if (uploadType === "pdf" || uploadType === "docx") {
       const link = document.createElement("a");

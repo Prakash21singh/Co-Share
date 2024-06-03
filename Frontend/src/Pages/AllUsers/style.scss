@@ -8,6 +8,7 @@
   border-radius: 5px;
   box-shadow: 0px 0px 15px 2px rgba(228, 4, 213, 0.083);
   overflow: auto;
+  position: relative;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -15,16 +16,66 @@
     margin: 5px 0;
     display: flex;
     width: 100%;
-    flex-direction: column;
+    // flex-direction: column;
+    transition: 0.3s all;
     background-color: #0e0e0e;
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.237);
     padding: 5px;
-    .upper,
+    border: 1px solid rgba(190, 17, 216, 0.192);
+    &:hover {
+      border: 1px solid rgba(171, 13, 158, 0.644);
+      // box-shadow: 0 0 17px rgba(171, 13, 158, 0.644);
+    }
+
+    .upper {
+      position: relative;
+      width: 20%;
+
+      .profileCard {
+        display: none;
+        scale: 0;
+      }
+      .hoverCard {
+        scale: 1;
+        width: 150px;
+        // height: 150px;
+        position: absolute;
+        background-color: #c5c3c3;
+        top: 70%;
+        left: 100%;
+        // padding: 10px;
+        z-index: 10;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        flex-direction: column;
+        box-shadow: 0 0 6px rgba(204, 11, 198, 0.176);
+        a,
+        button {
+          border: none;
+          text-decoration: none;
+          color: #f2f2f2;
+          width: 100%;
+          text-align: left;
+          font-size: 20px;
+          padding: 10px;
+          color: black;
+          transition: 0.3s all;
+          &:hover {
+            color: white;
+            background-color: #1a1919;
+          }
+        }
+      }
+    }
     .middle,
     .upper {
-      width: 100%;
+      // width: 100%;
       display: flex;
-      // margin: 8px 0;
+      align-items: start;
+      justify-content: center;
+      flex-direction: column;
     }
     color: gray;
 
@@ -43,8 +94,7 @@
     .middle {
       font-size: 1.2rem;
       padding-left: 5px;
-      display: flex;
-      flex-direction: column;
+      width: 100%;
       h4 {
         color: #b9b7b7;
       }
@@ -53,8 +103,10 @@
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
       margin: 5px 0;
+      p {
+        margin-right: 10px;
+      }
       .btm {
         width: 50%;
         padding: 5px;
