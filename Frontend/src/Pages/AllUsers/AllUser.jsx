@@ -33,7 +33,7 @@ const AllUser = () => {
         setUsers((prevData) =>
           prevData.map((user) =>
             user?._id === id
-              ? { ...user, followers: [...user.followers, loggedInUser._id] }
+              ? { ...user, followers: [...user.followers, loggedInUser?._id] }
               : user
           )
         );
@@ -57,7 +57,7 @@ const AllUser = () => {
               ? {
                   ...user,
                   followers: user.followers.filter(
-                    (follower) => follower !== loggedInUser._id
+                    (follower) => follower !== loggedInUser?._id
                   ),
                 }
               : user
@@ -84,18 +84,18 @@ const AllUser = () => {
                 src={user.avatar}
                 alt="img"
                 onClick={() => {
-                  setProfileClick(user._id);
+                  setProfileClick(user?._id);
                 }}
               />
               <div
                 className={`profileCard ${
-                  profileClick === user._id
+                  profileClick === user?._id
                     ? "profileCard hoverCard"
                     : "profileCard"
                 }`}>
-                {loggedInUser._id !== user._id ? (
+                {loggedInUser?._id !== user._id ? (
                   <div>
-                    {user.followers?.includes(loggedInUser._id) ? (
+                    {user.followers?.includes(loggedInUser?._id) ? (
                       <button
                         onClick={() => {
                           handleUnfollowUser(user?._id);
