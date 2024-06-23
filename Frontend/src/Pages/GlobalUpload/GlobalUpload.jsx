@@ -16,6 +16,7 @@ const GlobalUpload = () => {
       })
       .then((res) => {
         let { data: apiData } = res.data;
+
         setData(apiData);
       })
       .catch((error) => {
